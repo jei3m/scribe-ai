@@ -33,7 +33,8 @@ function Header() {
         textDecoration: 'none',
         color: '#000',
         fontWeight: 'bold',
-        fontSize: '1.8rem'
+        fontSize: '1.8rem',
+        marginLeft:'30px'
       }}>
         <span style={{ color: '#007bff' }}>Jeiem</span>docs
       </a>
@@ -50,7 +51,7 @@ function Header() {
                 width: '50px',
                 height: '50px',
                 borderRadius: '50%',
-                marginRight: '1rem',
+                marginRight: '2rem',
                 border: '3px solid #007bff',
                 cursor: 'pointer' // Add cursor pointer for clickable image
               }}
