@@ -43,15 +43,28 @@
     align-items: center; /* Center content vertically */
     box-sizing: border-box; /* Prevent overflow issues */
     width: 100%;
+    max-width: 100%; /* Ensure it doesn’t exceed the container width */
     border-radius: 10px;
     background-color: #4ea3ff !important;
     border: 2px solid #4ea3ff !important; /* Set border width and color */
     color: #000000; /* Ensure toolbar text color */
     margin: 0 auto; /* Center toolbar horizontally within its parent */
+    padding: 5px; /* Add some padding for better spacing */
 }
 
+/* Media Queries for Mobile Devices */
+@media (max-width: 768px) {
+    .ql-toolbar {
+        flex-wrap: wrap; /* Allow wrapping of toolbar items if necessary */
+        padding: 5px; /* Adjust padding for smaller screens */
+    }
 
-/* Page Break Styling */
+    .button-container {
+        flex-direction: column; /* Stack buttons vertically on smaller screens */
+        align-items: center; /* Center buttons horizontally */
+    }
+}
+
 .page-break {
     border-top: 2px dashed #ccc; /* Style the page break marker */
     margin: 20px 0; /* Add spacing around the page break marker */
