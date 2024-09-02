@@ -12,9 +12,9 @@ function DocsItem({ value }) {
 	const navigate = useNavigate()
 	const [isOpen, setIsOpen] = useState(false)
 
-	function handleClick(id) {
-		navigate(`/document/${id}`)
-	}
+	// function handleClick(id) {
+	// 	navigate(`/document/${id}`)
+	// }
 
 	async function handleDel() {
 		setIsOpen(false)
