@@ -34,14 +34,14 @@ const Home = () => {
       <Header />
       <HomeCreate setIsAdd={setIsAdd} />
       <div className='homeItems'>
-        <p>Your Documents:</p>
+        <p>{docs.length ? 'Your Documents:' : 'No documents'}</p>
         <div className='homeItemContainer'>
           {isDocsLoading ? (
             <LoadingElement />
           ) : docs.length ? (
             docs.map(doc => <DocsItem key={doc.id} value={doc} />)
           ) : (
-            <h2>No documents? Click on + to create one.</h2>
+            <h2>Click the <span className='create-icon'>+</span> above to create one.</h2>
           )}
         </div>
       </div>

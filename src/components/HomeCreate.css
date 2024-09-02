@@ -49,7 +49,7 @@
 	font-size: 10vw; /* Font size relative to viewport width */
 	color: var(--reg-color);
 	border-radius: 8px;
-	width: 20vw; /* Width relative to viewport width */
+	width: 14vw; /* Width relative to viewport width */
 	transition: background-color 0.3s ease; /* Smooth background color transition */
 }
 

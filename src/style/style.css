@@ -163,6 +163,7 @@ p {
 .homeItems {
 	width: 100%;
 	padding: 20px;
+	align-items: center;
 }
 .homeItems p {
 	font-size: 26px;
@@ -177,8 +178,18 @@ p {
 	margin: 0 auto;
 	padding: 10px;
 	justify-content: center;
+	align-items: center;
+	text-align: center;
 }
 
+.create-icon {
+	color: #007bff; /* Change this to any shade of blue you prefer */
+	font-size: 1.6em; /* Adjust size as needed */
+	font-weight: bold; /* Optional: Make it bold */
+	vertical-align: -6px; /* Align the + sign with the text */
+	line-height: 1; /* Ensure proper vertical alignment */
+  }
+  
 
 
 /* Docs */
