@@ -1,54 +1,146 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react';
 import {
-	GoogleAuthProvider,
-	onAuthStateChanged,
-	signInWithPopup,
-	signOut,
-} from 'firebase/auth'
-import { auth, db } from '../firebase'
-import Loading from '../page/Loading'
-import { addDoc, collection } from 'firebase/firestore'
-const AuthContext = createContext()
+    GoogleAuthProvider,
+    onAuthStateChanged,
+    signInWithPopup,
+    signOut,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    updateProfile,
+} from 'firebase/auth';
+import { auth, db } from '../firebase';
+import Loading from '../page/Loading';
+import { addDoc, collection } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
+const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-	const [currentUser, setCurrentUser] = useState(null)
-	const [loading, setLoading] = useState(true)
-	function signInWithGoogle() {
-		const provider = new GoogleAuthProvider()
-		signInWithPopup(auth, provider)
-	}
-	function logOut() {
-		signOut(auth)
-	}
-	async function addDocs(title, isPrivate) {
-		addDoc(collection(db, 'docs-data'), {
-			title: title,
-			author: currentUser.email,
-			private: isPrivate,
-			body: '',
-		})
-	}
-	const value = {
-		currentUser,
-		setCurrentUser,
-		signInWithGoogle,
-		logOut,
-		addDocs,
-	}
-	useEffect(() => {
-		const unsubscribe = onAuthStateChanged(auth, user => {
-			setCurrentUser(user)
-			setLoading(false)
-		})
-		return unsubscribe
-	}, [])
-	return (
-		<AuthContext.Provider value={value}>
-			{loading ? <Loading /> : children}
-		</AuthContext.Provider>
-	)
+    const [currentUser, setCurrentUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    const storage = getStorage();
+
+    // Sign in with Google
+    async function signInWithGoogle() {
+        const provider = new GoogleAuthProvider();
+        try {
+            const result = await signInWithPopup(auth, provider);
+            return result.user;
+        } catch (error) {
+            console.error('Error signing in with Google:', error);
+            throw error;
+        }
+    }
+
+    // Sign up with email, password, and profile picture
+    async function signUpWithEmail(email, password, profilePic, displayName) {
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+    
+            // Update user's display name
+            await updateProfile(user, { displayName });
+    
+            // Handle profile picture upload
+            if (profilePic) {
+                const storageRef = ref(storage, `profile-pictures/${user.uid}/${profilePic.name}`);
+                await uploadBytes(storageRef, profilePic);
+                const downloadURL = await getDownloadURL(storageRef);
+    
+                // Update user's profile with the downloadURL
+                await updateProfile(user, { photoURL: downloadURL });
+                console.log('Profile picture uploaded, URL:', downloadURL);
+            }
+    
+            console.log('User registered:', user);
+            setCurrentUser({ ...user, displayName }); // Update the currentUser with displayName
+        } catch (error) {
+            console.error('Error signing up:', error);
+            throw error;
+        }
+    }
+
+    // Sign in with email and password
+    async function signInWithEmail(email, password) {
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            return userCredential.user;
+        } catch (error) {
+            console.error('Error signing in:', error);
+            throw error;
+        }
+    }
+
+    // Log out
+    function logOut() {
+        return signOut(auth).catch((error) => console.error('Error signing out:', error));
+    }
+
+    // Add a document to Firestore
+    async function addDocs(title, isPrivate) {
+        try {
+            await addDoc(collection(db, 'docs-data'), {
+                title: title,
+                author: currentUser?.email,
+                private: isPrivate,
+                body: '',
+            });
+        } catch (error) {
+            console.error('Error adding document:', error);
+            throw error;
+        }
+    }
+
+    // Upload profile picture to Firebase Storage
+    async function uploadProfilePicture(file) {
+        try {
+            if (!file) throw new Error('No file provided');
+
+            const storageRef = ref(storage, `profile-pictures/${currentUser.uid}/${file.name}`);
+            await uploadBytes(storageRef, file);
+            const downloadURL = await getDownloadURL(storageRef);
+
+            // Optionally, update user's profile with the downloadURL if needed
+            console.log('Profile picture uploaded, URL:', downloadURL);
+            return downloadURL;
+        } catch (error) {
+            console.error('Error uploading profile picture:', error);
+            throw error;
+        }
+    }
+
+    // Provide context values
+    const value = {
+        currentUser,
+        signInWithGoogle,
+        signUpWithEmail,
+        signInWithEmail,
+        logOut,
+        addDocs,
+        uploadProfilePicture,
+    };
+
+    // Check user authentication state
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            setCurrentUser(user);
+            setLoading(false);
+        });
+        return unsubscribe;
+    }, []);
+
+    return (
+        <AuthContext.Provider value={value}>
+            {loading ? <Loading /> : children}
+        </AuthContext.Provider>
+    );
 }
 
 export const UserAuth = () => {
-	return useContext(AuthContext)
-}
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error('UserAuth must be used within an AuthProvider');
+    }
+    return context;
+};

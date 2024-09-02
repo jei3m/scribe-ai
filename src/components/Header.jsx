@@ -12,6 +12,9 @@ function Header() {
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
 
+  // Log currentUser for debugging
+  console.log('Current User:', currentUser);
+
   return (
     <header style={{
       display: 'flex',
@@ -83,7 +86,7 @@ function Header() {
 				  marginTop: '10px'
                 }}
               />
-              <p><strong>Name:</strong> {currentUser.displayName}</p>
+              <p><strong>Name:</strong> {currentUser.displayName || 'No name provided'}</p>
               <p><strong>Email:</strong> {currentUser.email}</p>
               <div style={{ marginTop: '1rem' }}>
                 <button

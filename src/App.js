@@ -5,11 +5,13 @@ import Docs from './page/Docs'
 import PrivateRoutes from './routes/PrivateRoutes'
 import ErrorPage from './page/ErrorPage'
 import ViewDocs from './page/ViewDocs'
+import Register from './page/Register'
 
 function App() {
 	return (
 		<Routes>
 			<Route path='/' element={<Login />} />
+			<Route path='/register' element={<Register />} />
 			<Route
 				path='/home'
 				element={
