@@ -19,13 +19,15 @@
 
 .docsItemBtn {
 	color: #007bff;
-	align-items: center;
 	transform: rotate(90deg);
 	font-size: 18px;
 	z-index: 3;
 	font-weight: 800;
 	cursor: pointer;
 	transition: color 0.3s ease;
+	position: absolute; /* or relative, depending on the context */
+	right: 0; /* aligns the element to the right edge of its containing element */
+	margin-right: 20px;
 }
 
 .docsItemBtn:hover {
