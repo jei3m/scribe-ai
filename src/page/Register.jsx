@@ -15,8 +15,13 @@ function Register() {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        setIsFormValid(name.length > 0 && email.length > 0 && pass.length >= 6);
-    }, [name, email, pass]);
+        setIsFormValid(
+            name.length > 0 && 
+            email.length > 0 && 
+            pass.length >= 6 && 
+            profilePic !== null
+        );
+    }, [name, email, pass, profilePic]);
 
     function handleFileChange(e) {
         if (e.target.files[0]) {
@@ -29,7 +34,7 @@ function Register() {
         setError('');
         try {
             if (signUpWithEmail) {
-                await signUpWithEmail(email, pass, profilePic, name); // Pass the name here
+                await signUpWithEmail(email, pass, profilePic, name);
                 navigate('/home');
             }
         } catch (e) {
