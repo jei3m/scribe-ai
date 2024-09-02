@@ -1,5 +1,5 @@
 import { collection, doc, onSnapshot, updateDoc } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -8,39 +8,9 @@ import '../style/style.css';
 import './Docs.css';
 import { UserAuth } from '../context/AuthContext';
 import Loading from './Loading';
-import Quill from 'quill';
 
-// Define a custom blot for page breaks
-const Block = Quill.import('blots/block');
-
-class PageBreakBlot extends Block {
-  static create() {
-    let node = super.create();
-    node.classList.add('page-break');
-    return node;
-  }
-
-  static formats(node) {
-    return true;
-  }
-
-  static value(node) {
-    return true;
-  }
-
-  format(name, value) {
-    super.format(name, value);
-  }
-}
-
-PageBreakBlot.blotName = 'page-break';
-PageBreakBlot.tagName = 'div';
-
-Quill.register(PageBreakBlot);
-
-// Define the toolbar options and custom handler
 const TOOL_BAR_OPTIONS = [
-  [{ header: [1, 2, 3, 4, 5, 6, 7] }],
+  [{ header: [1, 2, 3, 4, 5, 6, false] }],
   [{ font: [] }],
   [{ list: 'ordered' }, { list: 'bullet' }],
   ['bold', 'italic', 'underline'],
@@ -50,16 +20,7 @@ const TOOL_BAR_OPTIONS = [
 const modules = {
   toolbar: {
     container: TOOL_BAR_OPTIONS,
-    handlers: {
-      'page-break': function () {
-        const quill = this.quill;
-        const range = quill.getSelection();
-        if (range) {
-          quill.insertEmbed(range.index, 'page-break', true);
-        }
-      }
-    }
-  }
+  },
 };
 
 function Docs() {
@@ -68,6 +29,7 @@ function Docs() {
   const [isLoading, setIsLoading] = useState(true);
   const { currentUser } = UserAuth();
   const navigate = useNavigate();
+  const editorRef = useRef(null);
 
   useEffect(() => {
     const documentUnsubscribe = onSnapshot(
@@ -104,30 +66,73 @@ function Docs() {
     navigate('/home');
   }
 
+  useEffect(() => {
+    const preventOverflow = () => {
+      if (editorRef.current) {
+        const editor = editorRef.current.getEditor();
+        if (editor) {
+          const maxHeight = 1120; // Adjust based on your height requirement
+          const container = editor.root.parentNode;
+  
+          // Get the content height
+          const contentHeight = editor.root.scrollHeight;
+  
+          // Check if the content exceeds max height
+          if (contentHeight > maxHeight) {
+            editor.root.style.overflow = 'hidden';
+            editor.root.style.height = `${maxHeight}px`;
+            editor.disable(); // Disable further editing
+          } else {
+            editor.root.style.overflow = 'hidden'; // Ensure no scrolling is enabled
+            editor.root.style.height = 'auto';
+            editor.enable(); // Enable editing if content height is within limit
+          }
+        }
+      }
+    };
+
+    // Check and prevent overflow on text change
+    const editor = editorRef.current?.getEditor();
+    if (editor) {
+      editor.on('text-change', preventOverflow);
+    }
+
+    return () => {
+      if (editor) {
+        editor.off('text-change', preventOverflow);
+      }
+    };
+  }, []);
+
   return (
     <div className='Docs'>
       {isLoading ? (
         <Loading />
       ) : (
         <>
-          <button onClick={goToHome} className='backButton'>
-            Back
-          </button>
-          <button
-            onClick={() => {
-              window.print();
-            }}
-            className='printButton'
-          >
-            Print
-          </button>
-          <ReactQuill
-            modules={modules}
-            theme='snow'
-            value={editorData}
-            onChange={handleChange}
-            className='ReactQuill'
-          />
+          <div className='button-container'>
+            <button onClick={goToHome} className='backButton'>
+              Back
+            </button>
+            <button
+              onClick={() => {
+                window.print();
+              }}
+              className='printButton'
+            >
+              Print
+            </button>
+          </div>
+          <div className='editorContainer'>
+            <ReactQuill
+              ref={editorRef}
+              modules={modules}
+              theme='snow'
+              value={editorData}
+              onChange={handleChange}
+              className='ReactQuill'
+            />
+          </div>
         </>
       )}
     </div>

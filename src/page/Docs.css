@@ -88,3 +88,17 @@
         page-break-before: always; /* Ensure page break happens on print */
     }
 }
+
+/* Docs.css */
+.page {
+    max-height: 1120px; /* Set to match PAGE_HEIGHT */
+    overflow: hidden;
+    page-break-after: always;
+    margin-bottom: 20px; /* Optional: Space between pages */
+  }
+  
+  .page:last-child {
+    page-break-after: auto;
+  }
+  
+  
