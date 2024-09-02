@@ -1,0 +1,81 @@
+import { useState } from 'react';
+import { UserAuth } from '../context/AuthContext';
+import './HomeModal.css';
+
+export default function HomeModal({ setIsAdd, existingDocs }) {
+	const { addDocs } = UserAuth();
+	const [isPrivate, setIsPrivate] = useState(true);
+	const [error, setError] = useState(null);
+	const [text, setText] = useState('');
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		if (text === '') {
+			setError('Document title is required');
+			return;
+		}
+		if (text.length > 30) {
+			setError('Title too long');
+			return;
+		}
+		if (existingDocs.some(doc => doc.title === text)) {
+			setError('Document already exists');
+			return;
+		}
+		addDocs(text, isPrivate);
+		setIsAdd(false);
+	};
+
+	const handleCheckboxChange = () => {
+		setIsPrivate(!isPrivate);
+	};
+
+	const handleKeyDown = (e) => {
+		if (e.key === 'Enter') {
+			handleSubmit(e);
+		}
+	};
+
+	return (
+		<div className='homeModalContainer'>
+			<form onSubmit={handleSubmit} className='homeAddModal'>
+				<input
+					type='text'
+					value={text}
+					onChange={e => setText(e.target.value)}
+					onKeyDown={handleKeyDown}
+					placeholder='Add a Document Title'
+					className='homeModalInput'
+				/>
+				<label className='homeModalLabel'>
+					Private
+					<input
+						type='checkbox'
+						checked={isPrivate}
+						onChange={handleCheckboxChange}
+					/>
+				</label>
+				{error && (
+					<p className='homeModalError'>
+						{error}
+					</p>
+				)}
+				<div className='homeFlex'>
+					<button
+						type='button'
+						onClick={() => setIsAdd(false)}
+						className='homeModalCancel'
+					>
+						Cancel
+					</button>
+					<button
+						type='submit'
+						className='homeModalAdd'
+					>
+						Add
+					</button>
+				</div>
+			</form>
+		</div>
+	);
+}

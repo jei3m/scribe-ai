@@ -1,0 +1,72 @@
+.Docs {
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #d3d3d3;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    overflow-x: auto; /* Handle horizontal overflow if needed */
+}
+
+.backButton, .printButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.backButton {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.printButton {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.ReactQuill {
+    margin-top: 20px;
+    width: 100%; /* Ensure the editor takes up available space */
+}
+
+/* Toolbar Styling */
+.ql-toolbar {
+    align-self: center;
+    box-sizing: border-box; /* Prevent overflow issues */
+    width: 100%;
+    border-radius: 10px;
+    background-color: #4ea3ff !important;
+    color: #000000; /* Ensure toolbar text is white */
+}
+
+/* Page Break Styling */
+.page-break {
+    border-top: 2px dashed #ccc; /* Style the page break marker */
+    margin: 20px 0; /* Add spacing around the page break marker */
+    position: relative;
+    text-align: center;
+    color: #aaa;
+}
+
+.page-break::after {
+    content: '--- Page Break ---'; /* Text to display at the page break */
+    position: absolute;
+    top: -1em; /* Adjust as needed */
+    left: 0;
+    right: 0;
+    font-size: 0.8em;
+}
+
+@media print {
+    .page-break {
+        display: block;
+        page-break-before: always; /* Ensure page break happens on print */
+    }
+}
