@@ -6,7 +6,7 @@ import { UserAuth } from '../context/AuthContext';
 Modal.setAppElement('#root');
 
 function Header() {
-  const { logOut, currentUser, documentsCreated } = UserAuth();
+  const { logOut, currentUser} = UserAuth();
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => setModalIsOpen(true);
