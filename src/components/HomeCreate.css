@@ -1,0 +1,91 @@
+/* Style for the container div */
+.homeCreateDiv {
+	display: flex;
+	flex-direction: row; /* Arrange items horizontally */
+	align-items: center; /* Center items vertically */
+	justify-content: center; /* Center items horizontally */
+	background-color: var(--itemBg-color);
+	padding: 50px 0; /* Increase padding for a hero section effect */
+	position: relative; /* Position relative to place the separator correctly */
+    box-sizing: border-box;
+}
+
+/* Container for the text */
+.textContainer {
+	margin-right: 20px; /* Space between the text and the button */
+	text-align: left; /* Align text to the left */
+}
+
+/* Style for the main instruction text */
+.homeCreateText {
+	font-size: 8vw; /* Font size relative to viewport width for larger screens */
+	color: #333; /* Dark gray text color */
+	font-weight: bold; /* Make the text bold */
+	margin: 0; /* Remove default margin */
+	line-height: 1.1; /* Line height for better readability */
+}
+
+/* Style for the sub instruction text */
+.homeCreateSubText {
+	font-size: 8vw; /* Font size relative to viewport width */
+	color: #007bff; /* Dark gray text color */
+	font-weight: bold; /* Make the text bold */
+	margin: 0; /* Remove default margin */
+	line-height: 1; /* Line height for better readability */
+}
+
+/* Style for the button and separator container */
+.buttonSeparatorContainer {
+	display: flex;
+	flex-direction: column; /* Stack button and separator vertically */
+	align-items: center; /* Center items horizontally */
+}
+
+/* Style for the "+" button */
+.homeCreateBtn {
+	color: var(--text-color);
+	padding: 3vw 2vw; /* Padding relative to viewport width */
+	background-color: #dbdbdb;
+	font-size: 10vw; /* Font size relative to viewport width */
+	color: var(--reg-color);
+	border-radius: 8px;
+	width: 20vw; /* Width relative to viewport width */
+	transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+/* Change background color on hover */
+.homeCreateBtn:hover {
+	background-color: #979797; /* Darker gray on hover */
+}
+
+/* Style for the separator */
+.separator {
+	width: 100vw; /* Full viewport width */
+	height: 1px; /* Thin separator */
+	background-color: #ccc; /* Light gray color */
+	position: absolute; /* Absolute positioning to span full width */
+	bottom: 0; /* Place at the bottom of the container */
+	left: 0; /* Align to the left */
+	margin-top: 30px; /* Space between button and separator */
+}
+
+/* Responsive adjustments */
+@media (min-width: 600px) {
+	.homeCreateText {
+		font-size: 60px; /* Adjust font size for medium screens */
+	}
+
+	.homeCreateSubText {
+		font-size: 40px; /* Adjust font size for medium screens */
+	}
+}
+
+@media (min-width: 992px) {
+	.homeCreateText {
+		font-size: 80px; /* Adjust font size for large screens */
+	}
+
+	.homeCreateSubText {
+		font-size: 50px; /* Adjust font size for large screens */
+	}
+}

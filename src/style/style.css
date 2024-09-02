@@ -158,13 +158,14 @@ p {
 	font-size: 90px;
 	color: var(--reg-color);
 	border-radius: 8px;
+	width: 140px;
 }
 .homeItems {
 	width: 100%;
 	padding: 20px;
 }
 .homeItems p {
-	font-size: 20px;
+	font-size: 26px;
 	text-align: center;
 	font-weight: bold;
 }
@@ -172,7 +173,7 @@ p {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 30px;
-	max-width: 750px;
+	max-width: 1000px;
 	margin: 0 auto;
 	padding: 10px;
 	justify-content: center;

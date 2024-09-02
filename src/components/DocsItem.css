@@ -1,80 +1,103 @@
 .docsItem {
-	max-width: 350px;
-	border-radius: 8px;
-	background-color: #e0e0e0;
-	padding: 10px 20px;
-	color: #333333;
-	font-size: 15px;
+    max-width: 280px;
 	min-width: 280px;
-	display: flex;
-	justify-content: space-between;
-	position: relative;
-	align-items: center;
-	transition: background-color 0.3s ease;
+    height: 360px;
+    border-radius: 14px;
+    background-color: #e0e0e0;
+    padding: 20px;
+    color: #333333;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    position: relative;
+    transition: background-color 0.3s ease;
+    overflow: hidden; /* Ensure no scrollbar appears */
 }
 
 .docsItem:hover {
-	background-color: #ececec;
+    background-color: #ececec;
+}
+
+.docsTitle {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 80px;
+    text-align: center;
+    word-wrap: break-word; /* Allows long words to break onto a new line */
+    overflow-wrap: break-word; /* Ensures long words break on any browser */
+    word-break: break-all; /* Breaks long words or URLs */
+}
+
+.docsItemContent {
+    background-color: #ffffff;
+    border-radius: 8px;
+    width: 100%;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    justify-content: center; /* Center content vertically */
+    height: 500px;
+}
+
+.visibility {
+    position: absolute;
+    margin-top: 117px;
+    right: 50%;
 }
 
 .docsItemBtn {
-	color: #007bff;
-	transform: rotate(90deg);
-	font-size: 18px;
-	z-index: 3;
-	font-weight: 800;
-	cursor: pointer;
-	transition: color 0.3s ease;
-	position: absolute; /* or relative, depending on the context */
-	right: 0; /* aligns the element to the right edge of its containing element */
-	margin-right: 20px;
+    color: #007bff;
+    transform: rotate(90deg);
+    font-size: 18px;
+    z-index: 3;
+    font-weight: 800;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    position: absolute;
+    bottom: 110px; /* Move button to the bottom of the card */
+    left: 60%;
+    transform: translateX(-50%) rotate(90deg); /* Center button horizontally */
 }
 
 .docsItemBtn:hover {
-	color: #0056b3;
-}
-
-.docsItem p {
-	padding: 0 10px;
-	cursor: pointer;
-	text-align: left;
+    color: #0056b3;
 }
 
 .openModalCon {
-	width: 130px;
-	position: absolute;
-	top: 32px;
-	right: -95px;
-	background-color: #ffffff;
-	z-index: 4;
-	border-radius: 10px;
-	display: flex;
-	flex-direction: column;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 130px;
+    position: absolute;
+    top: 80px; /* Adjust to ensure modal is not hidden by the button */
+    right: 74px;
+    background-color: #ffffff;
+    z-index: 4;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .opemModalBtn {
-	color: #333333;
-	font-size: 14px;
-	transition: all 0.3s;
-	padding: 8px 5px;
-	background-color: transparent;
-	border: none;
-	cursor: pointer;
-	text-align: center;
+    color: #333333;
+    font-size: 14px;
+    transition: all 0.3s;
+    padding: 8px 5px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: center;
 }
 
 .opemModalBtn:hover {
-	background-color: #f1f1f1;
-	border-radius: 8px;
-	color: #007bff;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    color: #007bff;
 }
 
 .opemModalBtn:last-child {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
-
-
-
-
-

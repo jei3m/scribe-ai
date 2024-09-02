@@ -47,12 +47,17 @@ function DocsItem({ value }) {
 
 	return (
 		<div className='docsItem'>
-			<p onClick={() => handleClick(value.id)}>{value?.title}</p>
+			{/* <p className='docsItemTitle'>{value?.title}</p> */}
+			<div className='docsItemContent'>
+				<p className='docsTitle'>{value?.title}</p>
+			</div>
+			<div className='visibility'>
 			{value?.private === false ? (
 				<img alt='img' style={{ width: '36px' }} src={publicIcon} />
 			) : (
 				<img alt='img' style={{ width: '36px' }} src={privateIcon} />
 			)}
+			</div>
 			<button className='docsItemBtn' onClick={() => setIsOpen(!isOpen)}>
 				...
 			</button>
