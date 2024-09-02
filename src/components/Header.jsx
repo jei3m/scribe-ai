@@ -6,7 +6,7 @@ import { UserAuth } from '../context/AuthContext';
 Modal.setAppElement('#root');
 
 function Header() {
-  const { logOut, currentUser} = UserAuth();
+  const { logOut, currentUser } = UserAuth();
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => setModalIsOpen(true);
@@ -80,12 +80,37 @@ function Header() {
                   height: '100px',
                   borderRadius: '50%',
                   marginBottom: '1rem',
-				  marginTop:'10px'
+				  marginTop: '10px'
                 }}
               />
               <p><strong>Name:</strong> {currentUser.displayName}</p>
               <p><strong>Email:</strong> {currentUser.email}</p>
               <div style={{ marginTop: '1rem' }}>
+                <button
+                  onClick={closeModal}
+                  style={{
+                    background: '#6c757d',
+                    border: 'none',
+                    color: '#ffffff',
+                    fontSize: '1rem',
+                    cursor: 'pointer',
+                    borderRadius: '4px',
+                    padding: '0.5rem 1rem',
+                    display: 'inline-block',
+                    marginRight: '0.5rem', // Add spacing between buttons
+                    transition: 'background-color 0.3s ease, transform 0.3s ease' // Add transition
+                  }}
+                  onMouseOver={e => {
+                    e.currentTarget.style.backgroundColor = '#5a6268'; // Lighter gray on hover
+                    e.currentTarget.style.transform = 'scale(1.05)';
+                  }}
+                  onMouseOut={e => {
+                    e.currentTarget.style.backgroundColor = '#6c757d'; // Original gray color
+                    e.currentTarget.style.transform = 'scale(1)';
+                  }}
+                >
+                  Close
+                </button>
                 <button
                   onClick={logOut}
                   style={{
@@ -98,7 +123,7 @@ function Header() {
                     borderRadius: '4px',
                     padding: '0.5rem 1rem',
                     display: 'inline-block',
-                    marginRight: '0.5rem' // Add spacing between buttons
+                    marginLeft: '0.5rem' // Add spacing between buttons
                   }}
                   onMouseOver={e => {
                     e.currentTarget.style.backgroundColor = '#0056b3';
@@ -110,22 +135,6 @@ function Header() {
                   }}
                 >
                   Log Out
-                </button>
-                <button
-                  onClick={closeModal}
-                  style={{
-                    background: '#6c757d',
-                    border: 'none',
-                    color: '#ffffff',
-                    fontSize: '1rem',
-                    cursor: 'pointer',
-                    borderRadius: '4px',
-                    padding: '0.5rem 1rem',
-                    display: 'inline-block',
-                    marginLeft: '0.5rem' // Add spacing between buttons
-                  }}
-                >
-                  Close
                 </button>
               </div>
             </Modal>
