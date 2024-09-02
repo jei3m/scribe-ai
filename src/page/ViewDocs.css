@@ -1,0 +1,24 @@
+.view-docs-container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #e0e0e0;
+}
+
+.responsive-quill {
+    width: 100%;
+    max-width: 800px; /* Set a max-width to prevent it from getting too wide on large screens */
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .view-docs-container {
+        padding: 10px;
+    }
+
+    .responsive-quill {
+        max-width: 100%;
+    }
+}

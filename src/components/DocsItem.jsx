@@ -31,7 +31,7 @@ function DocsItem({ value }) {
 			toast.error('This document is private, the link cannot be copied.')
 		} else {
 			navigator.clipboard.writeText(
-				`https://jeiem-docs.vercel.app//document/${value.id}/view`
+				`https://jeiem-docs.netlify.app/${value.id}/view`
 			)
 			toast.success('Link copied to clipboard!')
 		}

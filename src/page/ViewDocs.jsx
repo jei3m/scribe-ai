@@ -5,6 +5,7 @@ import { db } from '../firebase'
 import Loading from './Loading'
 import { UserAuth } from '../context/AuthContext'
 import ReactQuill from 'react-quill'
+import './ViewDocs.css' // Add a CSS file for custom styles
 
 function ViewDocs() {
 	const params = useParams()
@@ -12,6 +13,7 @@ function ViewDocs() {
 	const [isLoading, setIsLoading] = useState(true)
 	const navigate = useNavigate()
 	const { currentUser } = UserAuth()
+
 	useEffect(() => {
 		const documentUnsubscribe = onSnapshot(
 			doc(collection(db, 'docs-data'), params.id),
@@ -27,12 +29,13 @@ function ViewDocs() {
 		)
 		return documentUnsubscribe
 	}, [currentUser.email, params.id, navigate])
+
 	return (
-		<div className='ViewDocsContainer'>
+		<div className='view-docs-container'>
 			{isLoading ? (
 				<Loading />
 			) : (
-				<ReactQuill value={textData} readOnly={true}></ReactQuill>
+				<ReactQuill value={textData} readOnly={true} className="responsive-quill" />
 			)}
 		</div>
 	)
