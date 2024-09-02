@@ -10,6 +10,7 @@ function Login() {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
+    const [error, setError] = useState(''); // State to hold error messages
 
     useEffect(() => {
         if (currentUser) {
@@ -24,22 +25,24 @@ function Login() {
 
     async function handleEmailSignIn(e) {
         e.preventDefault();
+        setError(''); // Clear any previous error
         try {
             await signInWithEmail(email, pass);
             navigate('/home'); // Redirect to home or another page after successful sign-in
         } catch (e) {
             console.error('Error signing in with email:', e);
-            // Optionally, set some state to show error message to the user
+            setError('Invalid email or password. Please try again.'); // Set error message
         }
     }
 
     async function handleGoogleSignIn() {
+        setError(''); // Clear any previous error
         try {
             await signInWithGoogle();
             navigate('/home'); // Redirect to home or another page after successful sign-in
         } catch (e) {
             console.error('Error signing in with Google:', e);
-            // Optionally, set some state to show error message to the user
+            setError('Google sign-in failed. Please try again.'); // Set error message
         }
     }
 
@@ -47,6 +50,7 @@ function Login() {
         <div className="Appokform"> {/* Wrapper for the form container, applies styling from a CSS class */}
             <div className="Appcardform"> {/* Card-like container for the login form */}
                 <h2 style={{ fontSize: '2em' }}>Login</h2> {/* Header for the form with inline font size styling */}
+                
                 <form className="auth-form-container" onSubmit={handleEmailSignIn}> {/* Form container with submit handler */}
                     <input 
                         value={email} 
@@ -68,6 +72,7 @@ function Login() {
                         Login
                     </button>
                 </form>
+				{error && <p className="error-message">{error}</p>} {/* Display error message if it exists */}
                 <button onClick={handleGoogleSignIn} className='google-login-btn'>
                     <img 
                         src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' 
