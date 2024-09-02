@@ -38,13 +38,18 @@
 
 /* Toolbar Styling */
 .ql-toolbar {
-    align-self: center;
+    display: flex; /* Enable flexbox */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
     box-sizing: border-box; /* Prevent overflow issues */
     width: 100%;
     border-radius: 10px;
     background-color: #4ea3ff !important;
-    color: #000000; /* Ensure toolbar text is white */
+    border: 2px solid #4ea3ff !important; /* Set border width and color */
+    color: #000000; /* Ensure toolbar text color */
+    margin: 0 auto; /* Center toolbar horizontally within its parent */
 }
+
 
 /* Page Break Styling */
 .page-break {
