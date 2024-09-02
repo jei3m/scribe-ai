@@ -72,8 +72,7 @@ function Docs() {
         const editor = editorRef.current.getEditor();
         if (editor) {
           const maxHeight = 1120; // Adjust based on your height requirement
-          const container = editor.root.parentNode;
-  
+          //const container = editor.root.parentNode;
           // Get the content height
           const contentHeight = editor.root.scrollHeight;
   
