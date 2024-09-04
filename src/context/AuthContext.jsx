@@ -91,6 +91,7 @@ export function AuthProvider({ children }) {
             throw error;
         }
     }
+    
 
     // Upload profile picture to Firebase Storage
     async function uploadProfilePicture(file) {
