@@ -34,7 +34,7 @@ const Home = () => {
       <Header />
       <HomeCreate setIsAdd={setIsAdd} />
       <div className='homeItems'>
-        <p>{docs.length ? 'Your Documents:' : 'No documents'}</p>
+        <p>{docs.length ? 'Your Documents:' : 'No Documents'}</p>
         <div className='homeItemContainer'>
           {isDocsLoading ? (
             <LoadingElement />

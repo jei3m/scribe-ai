@@ -6,7 +6,7 @@ function ErrorPage() {
 	return (
 		<div className='ErrorPage'>
 			<h1>File not found</h1>
-			<button onClick={() => navigate('/home')}>Go to home page</button>
+			<button onClick={() => navigate('/home')}>Back to Home Page</button>
 		</div>
 	)
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { UserAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import Header from '../components/Header';
 
 function Register() {
     const { signUpWithEmail, signInWithGoogle } = UserAuth();
@@ -57,8 +58,9 @@ function Register() {
 
     return (
         <div className="Appokform">
+            <Header/>
             <div className="Appcardform">
-                <h2 style={{ fontSize: '2em' }}>Register</h2>
+                <h2 style={{ fontSize: '2em', marginBottom:'14px' }}>Register</h2>
                 <form className="auth-form-container" onSubmit={handleRegister}>
                     <input
                         value={name}
@@ -94,14 +96,14 @@ function Register() {
                     </button>
                 </form>
                 {error && <p className="error-message">{error}</p>}
-                <button onClick={handleGoogleSignIn} className="google-login-btn">
+                {/* <button onClick={handleGoogleSignIn} className="google-login-btn">
                     <img
                         src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png'
                         alt='Google logo'
                         className='google-logo'
                     />
                     <span className='google-btn-text'>Sign up with Google</span>
-                </button>
+                </button> */}
                 <button className="link-btn" onClick={() => navigate('/')}>
                     Already have an account? Login here.
                 </button>

@@ -1,24 +1,61 @@
-.view-docs-container {
-    padding: 20px;
+/* General Styling */
+.view-docs-container, 
+.ViewDocsContainer {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background: #e0e0e0;
+    background-color: #e0e0e0;
 }
 
-.responsive-quill {
-    width: 100%;
-    max-width: 800px; /* Set a max-width to prevent it from getting too wide on large screens */
-    margin: 0 auto;
+/* Main Container */
+.view-docs-container {
+    padding: 20px;
+    min-height: 100vh;
 }
 
 @media (max-width: 768px) {
     .view-docs-container {
         padding: 10px;
     }
+}
 
+/* Responsive Quill Editor */
+.responsive-quill {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
     .responsive-quill {
         max-width: 100%;
+    }
+}
+
+/* View Docs Container */
+.ViewDocsContainer {
+    flex-direction: column;
+    padding: 5px 10px;
+    word-wrap: break-word;
+}
+
+/* Hide Quill Toolbar */
+.ViewDocsContainer .ql-toolbar.ql-snow {
+    display: none;
+}
+
+/* View Docs Content */
+.ViewDocs {
+    width: 8.5in;
+    min-height: 11in;
+    padding: 50px;
+    margin: 1rem;
+    background-color: var(--itemBg-color);
+    color: #ffffff;
+}
+
+@media (max-width: 870px) {
+    .ViewDocs {
+        width: clamp(18.75rem, 6.25rem + 62.5vw, 53.125rem);
     }
 }

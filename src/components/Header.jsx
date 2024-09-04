@@ -21,7 +21,7 @@ function Header() {
       justifyContent: 'space-between',
       alignItems: 'center',
       padding: '1rem 2rem',
-      backgroundColor: '#f8f9fa',
+      backgroundColor: '#FAF9F6',
       borderBottom: '1px solid #dee2e6',
       position: 'fixed',
       top: 0,
@@ -34,7 +34,7 @@ function Header() {
         color: '#000',
         fontWeight: 'bold',
         fontSize: '1.8rem',
-        marginLeft:'30px'
+        marginLeft: '30px'
       }}>
         <span style={{ color: '#007bff' }}>Jeiem</span>docs
       </a>
@@ -61,6 +61,10 @@ function Header() {
               isOpen={modalIsOpen}
               onRequestClose={closeModal}
               style={{
+                overlay: {
+                  backgroundColor: 'rgba(0, 0, 0, 0.7)', // Semi-transparent dark background
+                  zIndex: 1000 // Ensure it's above other content
+                },
                 content: {
                   top: '50%',
                   left: '50%',
@@ -70,7 +74,9 @@ function Header() {
                   borderRadius: '8px',
                   padding: '2rem',
                   width: '300px',
-                  textAlign: 'center'
+                  textAlign: 'center',
+                  backgroundColor: '#F8F8FF', // Ensure content background is white
+                  border: 'none' // Remove default border
                 }
               }}
               contentLabel='Profile Modal'
@@ -84,7 +90,7 @@ function Header() {
                   height: '100px',
                   borderRadius: '50%',
                   marginBottom: '1rem',
-				  marginTop: '10px'
+                  marginTop: '10px'
                 }}
               />
               <p><strong>Name:</strong> {currentUser.displayName || 'No name provided'}</p>

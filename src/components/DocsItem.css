@@ -1,23 +1,24 @@
 .docsItem {
-    max-width: 280px;
-	min-width: 280px;
-    height: 360px;
-    border-radius: 14px;
-    background-color: #e0e0e0;
-    padding: 20px;
+    max-width: 220px; /* Reduced width */
+    min-width: 210px; /* Reduced width */
+    height: 290px; /* Reduced height */
+    border-radius: 10px; /* Slightly smaller border radius */
+    background-color: #cccccc;
+    padding: 16px; /* Reduced padding */
     color: #333333;
-    font-size: 15px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.452);
+    font-size: 13px; /* Smaller font size */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center; /* Center content vertically */
     position: relative;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.6s ease;
     overflow: hidden; /* Ensure no scrollbar appears */
 }
 
 .docsItem:hover {
-    background-color: #ececec;
+    background-color: #838383;
 }
 
 .docsTitle {
@@ -33,16 +34,17 @@
 .docsItemContent {
     background-color: #ffffff;
     border-radius: 8px;
-    width: 100%;
+    width: 195px;
     padding: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-items: center; /* Center content horizontally */
     justify-content: center; /* Center content vertically */
-    height: 500px;
+    height: 265px; /* Height should work with !important */
+    flex-shrink: 0; /* Prevent the flex item from shrinking */
 }
+
 
 .visibility {
     position: absolute;
@@ -59,7 +61,7 @@
     cursor: pointer;
     transition: color 0.3s ease;
     position: absolute;
-    bottom: 110px; /* Move button to the bottom of the card */
+    bottom: 75px; /* Move button to the bottom of the card */
     left: 60%;
     transform: translateX(-50%) rotate(90deg); /* Center button horizontally */
 }
@@ -71,14 +73,14 @@
 .openModalCon {
     width: 130px;
     position: absolute;
-    top: 80px; /* Adjust to ensure modal is not hidden by the button */
-    right: 74px;
+    top: 44px; /* Adjust to ensure modal is not hidden by the button */
+    right: 44px;
     background-color: #ffffff;
     z-index: 4;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.301);
 }
 
 .opemModalBtn {

@@ -1,14 +1,15 @@
 :root {
-	--bg-color: #ffffff; /* Light background color */
-	--bg-white-color: #ffffff; /* White background color */
+	--bg-color: #FAF9F6; /* Light background color */
+	--bg-white-color: #F8F8FF; /* White background color */
 	--header-color: #e0e0e0; /* Light gray header */
-	--itemBg-color: #ffffff; /* White background for items */
+	--itemBg-color: #FAF9F6; /* White background for items */
 	--itemBg-white-color: #f0f0f0; /* Slightly grayish white for items */
 	--reg-color: #007bff; /* Primary blue color */
 	--text-color: #333333; /* Dark text color for contrast */
 	--fog-color: #00bcd4; /* Teal color for fog */
 	--back-color: #ffffff; /* White background for back elements */
 }
+
 body,
 html {
     font-family: 'Noto Sans', sans-serif;
@@ -105,40 +106,8 @@ p {
 	text-align: center;
 	font-size: 60px;
 }
-/* Loading */
-/* header  */
-.header {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	display: flex;
-	align-items: center;
-	padding: 15px;
-	width: 100%;
-	background-color: var(--bg-white-color); /* Light background for header */
-	justify-content: space-between;
-}
-.headerLogoText {
-	font-size: 30px;
-}
-.headerLogoText span {
-	color: var(--reg-color);
-}
-.headerLogOut {
-	border-radius: 20px;
-	background-color: #3693f7;
-	padding: 10px 20px;
-	font-size: 15px;
-	color: #ffffff;
-	font-weight: bold;
-}
-.headerFlex {
-	display: flex;
-	align-items: center;
-	gap: 20px;
-}
-/* header  */
+
+
 /* home */
 .home {
 	height: 100vh;
@@ -194,22 +163,25 @@ p {
 
 /* Docs */
 .Docs {
-	min-height: 100vh;
+	min-height: 80vh;
 }
+
 /* add docs */
 .ql-editor {
 	width: 8.5in;
 	min-height: 11in;
-	padding: 50px;
-	margin: 1rem;
+	padding: 6px;
+	margin: 18px;
 	background-color: var(--itemBg-color);
 	color: var(--text-color);
 }
+
 .ql-container.ql-snow {
 	border: none;
 	display: flex;
 	justify-content: center;
 }
+
 .ql-toolbar.ql-snow {
 	display: flex;
 	justify-content: center;
@@ -323,33 +295,7 @@ p {
 	font-style: italic;
 	color: var(--text-color);
 }
-/* add docs */
 
-/* add docs */
-/*  */
-.backButton {
-	color: #ffffff;
-	background-color: #3693f7;
-	padding: 8px;
-	font-size: 15px;
-	border-radius: 10px;
-	position: fixed;
-	left: 10%;
-	bottom: 20px;
-	z-index: 2;
-}
-.printButton {
-	color: #ffffff;
-	background-color: #3693f7;
-	padding: 8px;
-	font-size: 15px;
-	border-radius: 10px;
-	position: fixed;
-	right: 10%;
-	bottom: 20px;
-	z-index: 2;
-}
-/*  */
 /*ErrorPage  */
 .ErrorPage {
 	min-height: 100vh;
@@ -365,67 +311,26 @@ p {
 }
 .ErrorPage button {
 	font-size: 20px;
-	padding: 10px 20px;
-	border-radius: 20px;
-	background-color: var(--itemBg-color);
-	color: var(--text-color);
-}
-/*ErrorPage  */
-/* ViewDocs */
-.ViewDocsContainer {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	padding: 5px 10px;
-	word-wrap: break-word;
-	background-color: #e0e0e0;
-}
-.ViewDocsContainer .ql-toolbar.ql-snow {
-	display: none;
-}
-.ViewDocs {
-	width: 8.5in;
-	min-height: 11in;
-	padding: 50px;
-	margin: 1rem;
-	background-color: var(--itemBg-color);
+	padding: 12px 20px;
+	border-radius: 12px;
+	background-color: #007bff;
 	color: #ffffff;
+	transition: background-color 0.3s ease;
 }
-@media (max-width: 870px) {
-	.ViewDocs {
-		width: clamp(18.75rem, 6.25rem + 62.5vw, 53.125rem);
-	}
+
+.ErrorPage button:hover {
+	background-color: #0451a3; /* Darker shade of blue on hover */
+	cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
 }
+
+
+
+
+/*ErrorPage  */
+
+
+/* ViewDocs */
+
 /* ViewDocs */
 /*  */
-@page {
-	margin: 1in;
-}
-@media print {
-	body {
-		background: #fff;
-	}
-	.Docs .ql-editor {
-		width: 6.5in;
-		/* height: 9in; */
-		padding: 0;
-		box-shadow: none;
-		align-self: flex-start;
-		color: #000;
-	}
-	.Docs .ql-toolbar.ql-snow {
-		display: none;
-	}
-	.backButton {
-		display: none;
-	}
-	.printButton {
-		display: none;
-	}
-	@page {
-		size: auto;
-		margin: 0mm;
-	}
-}
-/* Docs */
+

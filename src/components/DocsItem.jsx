@@ -12,9 +12,9 @@ function DocsItem({ value }) {
 	const navigate = useNavigate()
 	const [isOpen, setIsOpen] = useState(false)
 
-	// function handleClick(id) {
-	// 	navigate(`/document/${id}`)
-	// }
+	function handleClick(id) {
+		navigate(`/document/${id}`)
+	}
 
 	async function handleDel() {
 		setIsOpen(false)
@@ -49,7 +49,7 @@ function DocsItem({ value }) {
 		<div className='docsItem'>
 			{/* <p className='docsItemTitle'>{value?.title}</p> */}
 			<div className='docsItemContent'>
-				<p className='docsTitle'>{value?.title}</p>
+				<p onClick={()=> handleClick(value.id)} className='docsTitle'>{value?.title}</p>
 			</div>
 			<div className='visibility'>
 			{value?.private === false ? (
@@ -59,7 +59,7 @@ function DocsItem({ value }) {
 			)}
 			</div>
 			<button className='docsItemBtn' onClick={() => setIsOpen(!isOpen)}>
-				...
+			 ...
 			</button>
 			{isOpen && (
 				<div className='openModalCon'>

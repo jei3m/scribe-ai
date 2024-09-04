@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { UserAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import './Login.css'; // Import the CSS file
+import Header from '../components/Header';
 
 function Login() {
     const { currentUser, signInWithGoogle, signInWithEmail } = UserAuth();
@@ -48,8 +49,9 @@ function Login() {
 
     return (
         <div className="Appokform"> {/* Wrapper for the form container, applies styling from a CSS class */}
+            <Header/>
             <div className="Appcardform"> {/* Card-like container for the login form */}
-                <h2 style={{ fontSize: '2em' }}>Login</h2> {/* Header for the form with inline font size styling */}
+                <h2 style={{ fontSize: '2em', marginBottom:'20px' }}>Login</h2> {/* Header for the form with inline font size styling */}
                 
                 <form className="auth-form-container" onSubmit={handleEmailSignIn}> {/* Form container with submit handler */}
                     <input 

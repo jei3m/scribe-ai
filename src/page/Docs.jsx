@@ -8,6 +8,8 @@ import '../style/style.css';
 import './Docs.css';
 import { UserAuth } from '../context/AuthContext';
 import Loading from './Loading';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faFileAlt, faPrint } from '@fortawesome/free-solid-svg-icons';
 
 const TOOL_BAR_OPTIONS = [
   [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -66,43 +68,6 @@ function Docs() {
     navigate('/home');
   }
 
-  useEffect(() => {
-    const preventOverflow = () => {
-      if (editorRef.current) {
-        const editor = editorRef.current.getEditor();
-        if (editor) {
-          const maxHeight = 1120; // Adjust based on your height requirement
-          //const container = editor.root.parentNode;
-          // Get the content height
-          const contentHeight = editor.root.scrollHeight;
-  
-          // Check if the content exceeds max height
-          if (contentHeight > maxHeight) {
-            editor.root.style.overflow = 'hidden';
-            editor.root.style.height = `${maxHeight}px`;
-            editor.disable(); // Disable further editing
-          } else {
-            editor.root.style.overflow = 'hidden'; // Ensure no scrolling is enabled
-            editor.root.style.height = 'auto';
-            editor.enable(); // Enable editing if content height is within limit
-          }
-        }
-      }
-    };
-
-    // Check and prevent overflow on text change
-    const editor = editorRef.current?.getEditor();
-    if (editor) {
-      editor.on('text-change', preventOverflow);
-    }
-
-    return () => {
-      if (editor) {
-        editor.off('text-change', preventOverflow);
-      }
-    };
-  }, []);
-
   return (
     <div className='Docs'>
       {isLoading ? (
@@ -111,7 +76,7 @@ function Docs() {
         <>
           <div className='button-container'>
             <button onClick={goToHome} className='backButton'>
-              Back
+              <FontAwesomeIcon icon={faArrowLeft} /> Back
             </button>
             <button
               onClick={() => {
@@ -119,7 +84,7 @@ function Docs() {
               }}
               className='printButton'
             >
-              Print
+              Print  <FontAwesomeIcon icon={faFileAlt} /> 
             </button>
           </div>
           <div className='editorContainer'>

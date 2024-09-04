@@ -1,104 +1,132 @@
+/* Docs.css */
+
+/* General Styling for the Docs component */
 .Docs {
-    padding: 10px;
+    padding: 20px;
     box-sizing: border-box;
-    background-color: #d3d3d3;
+    background-color: #c9c9c9; /* Clean, white background */
+    margin: 0 auto; /* Center the content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for separation */
 }
 
+/* Button Container Styling */
 .button-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    overflow-x: auto; /* Handle horizontal overflow if needed */
 }
 
+/* Button Styling */
 .backButton, .printButton {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    white-space: nowrap; /* Prevent text from wrapping */
+    white-space: nowrap;
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
+/* Back Button Styling */
 .backButton {
-    background-color: #007bff;
-    color: #fff;
+    position: fixed;
+    left: 10%;
+    bottom: 20px;
+    z-index: 2;
+    background-color: #007bff; /* Primary color for back button */
+    color: #ffffff;
 }
 
+/* Print Button Styling */
 .printButton {
-    background-color: #28a745;
-    color: #fff;
+    position: fixed;
+    right: 10%;
+    bottom: 20px;
+    z-index: 2;
+    background-color: #28a745; /* Different color for print button */
+    color: #ffffff;
 }
 
+/* Button Hover Effects */
+.backButton:hover {
+    background-color: #0056b3; /* Darker shade for back button on hover */
+}
+
+.printButton:hover {
+    background-color: #218838; /* Darker shade for print button on hover */
+}
+
+/* Editor Container Styling */
+.editorContainer {
+    margin-top: 0; /* Reset margin to bring the editor closer to the toolbar */
+    width: 100%;
+}
+
+/* ReactQuill Styling */
 .ReactQuill {
-    margin-top: 20px;
-    width: 100%; /* Ensure the editor takes up available space */
+    margin: 0 auto;
+    max-width: 850px; /* Allow the editor to take full width */
+    width: 100%; /* Use full width */
+    border-radius: 10px !important;
+    background-color: #FAF9F6; /* White background for editor */
 }
 
 /* Toolbar Styling */
 .ql-toolbar {
-    display: flex; /* Enable flexbox */
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
-    box-sizing: border-box; /* Prevent overflow issues */
+    display: flex;
+    flex-wrap: wrap; /* Allow toolbar items to wrap */
+    box-sizing: border-box;
+    justify-content: center; /* Center align toolbar items */
     width: 100%;
-    max-width: 100%; /* Ensure it doesn’t exceed the container width */
+    border-bottom: 1px solid #ddd; /* Light bottom border */
+    background-color: #FAF9F6 !important; /* Light background for the toolbar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.521); /* Subtle shadow */
+    position: relative; /* Ensure proper positioning context */
     border-radius: 10px;
-    background-color: #4ea3ff !important;
-    border: 2px solid #4ea3ff !important; /* Set border width and color */
-    color: #000000; /* Ensure toolbar text color */
-    margin: 0 auto; /* Center toolbar horizontally within its parent */
-    padding: 5px; /* Add some padding for better spacing */
+    margin-bottom: 0; /* Reset margin to align properly with the editor */
+}
+
+/* Adjust Dropdown Visibility */
+.ql-toolbar .ql-picker {
+    z-index: 2; /* Ensure dropdowns are visible on top */
 }
 
 /* Media Queries for Mobile Devices */
 @media (max-width: 768px) {
-    .ql-toolbar {
-        flex-wrap: wrap; /* Allow wrapping of toolbar items if necessary */
-        padding: 5px; /* Adjust padding for smaller screens */
+    .Docs {
+        padding: 15px; /* Adjust padding for smaller screens */
     }
 
     .button-container {
-        flex-direction: column; /* Stack buttons vertically on smaller screens */
-        align-items: center; /* Center buttons horizontally */
+        flex-direction: column;
+        align-items: center; /* Center align buttons */
+    }
+
+    .backButton, .printButton {
+        width: auto; /* Set width to auto for better control */
+        max-width: 300px; /* Limit the maximum width */
+        margin-bottom: 10px;
+    }
+
+    .ReactQuill {
+        min-height: 250px; /* Reduce minimum height for tablets */
     }
 }
 
+@media (max-width: 480px) {
+    .backButton, .printButton {
+        font-size: 14px; /* Smaller font size for very small screens */
+        padding: 8px 16px; /* Smaller padding */
+        max-width: 100%; /* Ensure buttons don't exceed screen width */
+    }
+
+    .ReactQuill {
+        min-height: 200px; /* Further reduce editor height for very small screens */
+    }
+}
+
+/* Hide Page Break (Optional) */
 .page-break {
-    border-top: 2px dashed #ccc; /* Style the page break marker */
-    margin: 20px 0; /* Add spacing around the page break marker */
-    position: relative;
-    text-align: center;
-    color: #aaa;
+    display: none; /* Hide page breaks for note-taking view */
 }
-
-.page-break::after {
-    content: '--- Page Break ---'; /* Text to display at the page break */
-    position: absolute;
-    top: -1em; /* Adjust as needed */
-    left: 0;
-    right: 0;
-    font-size: 0.8em;
-}
-
-@media print {
-    .page-break {
-        display: block;
-        page-break-before: always; /* Ensure page break happens on print */
-    }
-}
-
-/* Docs.css */
-.page {
-    max-height: 1120px; /* Set to match PAGE_HEIGHT */
-    overflow: hidden;
-    page-break-after: always;
-    margin-bottom: 20px; /* Optional: Space between pages */
-  }
-  
-  .page:last-child {
-    page-break-after: auto;
-  }
-  
-  

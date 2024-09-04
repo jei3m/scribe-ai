@@ -5,7 +5,7 @@ import { db } from '../firebase'
 import Loading from './Loading'
 import { UserAuth } from '../context/AuthContext'
 import ReactQuill from 'react-quill'
-import './ViewDocs.css' // Add a CSS file for custom styles
+import './ViewDocs.css' 
 
 function ViewDocs() {
 	const params = useParams()

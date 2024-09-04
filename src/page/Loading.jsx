@@ -10,6 +10,7 @@ function Loading() {
         position: 'absolute', // Ensure it covers the whole screen
         top: 0,
         left: 0,
+        backgroundColor: '#FAF9F6', // White background color
     };
 
     const spinnerStyle = {
@@ -18,7 +19,7 @@ function Loading() {
         borderRadius: '50%',
         width: '60px',
         height: '60px',
-        animation: 'spin 2s linear infinite',
+        animation: 'spin 1s linear infinite',
     };
 
     return (

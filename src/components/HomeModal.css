@@ -23,12 +23,13 @@
 }
 
 .homeAddModal input[type='text'] {
-    width: calc(100% - 20px);
+    width: calc(100% - 10px);
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     margin-bottom: 10px;
     font-size: 16px;
+    align-self: center;
 }
 
 .homeAddModal label {
@@ -41,6 +42,8 @@
 
 .homeAddModal input[type='checkbox'] {
     accent-color: #007bff; /* Primary color for the checkbox */
+    margin-right: 180px;
+    margin-top: 2px;
 }
 
 .homeAddModal p {
