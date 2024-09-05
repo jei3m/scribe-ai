@@ -6,9 +6,10 @@ import { UserAuth } from '../context/AuthContext';
 Modal.setAppElement('#root');
 
 function Header() {
-  const { logOut, currentUser } = UserAuth();
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const { logOut, currentUser } = UserAuth(); // Get logOut function and currentUser from context
+  const [modalIsOpen, setModalIsOpen] = useState(false); // Modal visibility state
 
+  // Open and close modal functions
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
 

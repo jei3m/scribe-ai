@@ -9,23 +9,24 @@ import { UserAuth } from '../context/AuthContext';
 import LoadingElement from '../components/LoadingElement';
 
 const Home = () => {
-  const [docs, setDocs] = useState([]);
-  const [isDocsLoading, setIsDocsLoading] = useState(true);
-  const { currentUser } = UserAuth();
-  const [isAdd, setIsAdd] = useState(false);
+  const [docs, setDocs] = useState([]); // State for documents
+  const [isDocsLoading, setIsDocsLoading] = useState(true); // State for loading status
+  const { currentUser } = UserAuth(); // Authentication context
+  const [isAdd, setIsAdd] = useState(false); // State for modal visibility
 
   useEffect(() => {
     if (currentUser) {
+      // Listen for changes in the 'docs-data' collection
       const unsubscribe = onSnapshot(collection(db, 'docs-data'), (snapshot) => {
         const userDocs = snapshot.docs
           .map(doc => doc.data().author === currentUser.email ? { ...doc.data(), id: doc.id } : null)
           .filter(doc => doc !== null);
         
-        setDocs(userDocs);
-        setIsDocsLoading(false);
+        setDocs(userDocs); // Update state with user's documents
+        setIsDocsLoading(false); // Loading complete
       });
 
-      return () => unsubscribe();
+      return () => unsubscribe(); // Cleanup subscription on component unmount
     }
   }, [currentUser]);
 
@@ -37,16 +38,16 @@ const Home = () => {
         <p>{docs.length ? 'Your Documents:' : 'No Documents'}</p>
         <div className='homeItemContainer'>
           {isDocsLoading ? (
-            <LoadingElement />
+            <LoadingElement /> // Show loading spinner
           ) : docs.length ? (
-            docs.map(doc => <DocsItem key={doc.id} value={doc} />)
+            docs.map(doc => <DocsItem key={doc.id} value={doc} />) // Display documents
           ) : (
             <h2 style={{margin:'0'}}>Click the <span className='create-icon'>+</span> above to create one.</h2>
           )}
         </div>
       </div>
-      {isAdd && <HomeModal setIsAdd={setIsAdd} existingDocs={docs} />}
-    </div>
+      {isAdd && <HomeModal setIsAdd={setIsAdd} existingDocs={docs} />} 
+    </div> // Show modal if isAdd is true
   );
 };
 

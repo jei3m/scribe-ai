@@ -5,17 +5,18 @@ import './Login.css';
 import Header from '../components/Header';
 
 function Register() {
-    const { signUpWithEmail, signInWithGoogle } = UserAuth();
-    const navigate = useNavigate();
+    const { signUpWithEmail, signInWithGoogle } = UserAuth(); // Auth functions
+    const navigate = useNavigate(); // Navigation hook
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
-    const [profilePic, setProfilePic] = useState(null);
-    const [isFormValid, setIsFormValid] = useState(false);
-    const [error, setError] = useState('');
+    const [name, setName] = useState(''); // State for name
+    const [email, setEmail] = useState(''); // State for email
+    const [pass, setPass] = useState(''); // State for password
+    const [profilePic, setProfilePic] = useState(null); // State for profile picture
+    const [isFormValid, setIsFormValid] = useState(false); // State for form validation
+    const [error, setError] = useState(''); // State for error messages
 
     useEffect(() => {
+        // Validate form inputs
         setIsFormValid(
             name.length > 0 && 
             email.length > 0 && 
@@ -26,33 +27,21 @@ function Register() {
 
     function handleFileChange(e) {
         if (e.target.files[0]) {
-            setProfilePic(e.target.files[0]);
+            setProfilePic(e.target.files[0]); // Update profile picture
         }
     }
 
     async function handleRegister(e) {
-        e.preventDefault();
+        e.preventDefault(); // Prevent form submission
         setError('');
         try {
             if (signUpWithEmail) {
-                await signUpWithEmail(email, pass, profilePic, name);
-                navigate('/home');
+                await signUpWithEmail(email, pass, profilePic, name); // Register user
+                navigate('/home'); // Redirect to home
             }
         } catch (e) {
             console.error('Error registering:', e);
-            setError(`Registration failed: ${e.message}`);
-        }
-    }
-
-    async function handleGoogleSignIn() {
-        try {
-            if (signInWithGoogle) {
-                await signInWithGoogle();
-                navigate('/home');
-            }
-        } catch (e) {
-            console.error('Error signing in with Google:', e);
-            setError(`Google sign-in failed: ${e.message}`);
+            setError(`Registration failed: ${e.message}`); // Set error message
         }
     }
 
@@ -89,21 +78,13 @@ function Register() {
                     <input
                         type="file"
                         accept="image/*"
-                        onChange={handleFileChange}
+                        onChange={handleFileChange} // Handle file input change
                     />
                     <button className="buttonform" type="submit" disabled={!isFormValid}>
                         Register
                     </button>
                 </form>
-                {error && <p className="error-message">{error}</p>}
-                {/* <button onClick={handleGoogleSignIn} className="google-login-btn">
-                    <img
-                        src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png'
-                        alt='Google logo'
-                        className='google-logo'
-                    />
-                    <span className='google-btn-text'>Sign up with Google</span>
-                </button> */}
+                {error && <p className="error-message">{error}</p>} {/* Display error message */}
                 <button className="link-btn" onClick={() => navigate('/')}>
                     Already have an account? Login here.
                 </button>

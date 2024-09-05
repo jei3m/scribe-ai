@@ -16,10 +16,10 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-    const [currentUser, setCurrentUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [currentUser, setCurrentUser] = useState(null); // Current authenticated user
+    const [loading, setLoading] = useState(true); // Loading state
 
-    const storage = getStorage();
+    const storage = getStorage(); // Firebase Storage instance
 
     // Sign in with Google
     async function signInWithGoogle() {
@@ -92,7 +92,6 @@ export function AuthProvider({ children }) {
         }
     }
     
-
     // Upload profile picture to Firebase Storage
     async function uploadProfilePicture(file) {
         try {
@@ -128,16 +127,17 @@ export function AuthProvider({ children }) {
             setCurrentUser(user);
             setLoading(false);
         });
-        return unsubscribe;
+        return unsubscribe; // Cleanup subscription on unmount
     }, []);
 
     return (
         <AuthContext.Provider value={value}>
-            {loading ? <Loading /> : children}
+            {loading ? <Loading /> : children} {/* Show loading spinner until authentication state is resolved */}
         </AuthContext.Provider>
     );
 }
 
+// Access the AuthContext then throw an error if used outside the AuthProvider
 export const UserAuth = () => {
     const context = useContext(AuthContext);
     if (!context) {

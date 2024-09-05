@@ -4,13 +4,13 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { db } from '../firebase';
-import '../style/style.css';
 import './Docs.css';
 import { UserAuth } from '../context/AuthContext';
 import Loading from './Loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faFileAlt, faPrint } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faFileAlt } from '@fortawesome/free-solid-svg-icons';
 
+// Toolbar options for ReactQuill
 const TOOL_BAR_OPTIONS = [
   [{ header: [1, 2, 3, 4, 5, 6, false] }],
   [{ font: [] }],
@@ -19,6 +19,7 @@ const TOOL_BAR_OPTIONS = [
   [{ align: [] }],
 ];
 
+// ReactQuill modules configuration
 const modules = {
   toolbar: {
     container: TOOL_BAR_OPTIONS,
@@ -26,34 +27,36 @@ const modules = {
 };
 
 function Docs() {
-  const params = useParams();
-  const [editorData, setEditorData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const { currentUser } = UserAuth();
-  const navigate = useNavigate();
-  const editorRef = useRef(null);
+  const params = useParams(); // Get document ID from URL parameters
+  const [editorData, setEditorData] = useState(null); // State for editor content
+  const [isLoading, setIsLoading] = useState(true); // State for loading status
+  const { currentUser } = UserAuth(); // Authentication context
+  const navigate = useNavigate(); // Navigation hook
+  const editorRef = useRef(null); // Ref for ReactQuill component
 
   useEffect(() => {
+    // Subscribe to document changes
     const documentUnsubscribe = onSnapshot(
       doc(collection(db, 'docs-data'), params.id),
       (res) => {
         const data = res.data();
         if (data.author !== currentUser.email) {
-          navigate('/error');
+          navigate('/error'); // Redirect if user is not the author
         } else {
-          setEditorData(data.body);
-          setIsLoading(false);
+          setEditorData(data.body); // Set editor content
+          setIsLoading(false); // Loading complete
         }
       }
     );
-    return documentUnsubscribe;
+    return documentUnsubscribe; // Cleanup subscription on component unmount
   }, [currentUser.email, params.id, navigate]);
 
   function handleChange(value) {
-    setEditorData(value);
+    setEditorData(value); // Update editor content
   }
 
   useEffect(() => {
+    // Debounce document update
     const updateDocumentTimeout = setTimeout(() => {
       if (editorData !== null) {
         updateDoc(doc(collection(db, 'docs-data'), params.id), {
@@ -61,17 +64,17 @@ function Docs() {
         });
       }
     }, 500);
-    return () => clearTimeout(updateDocumentTimeout);
+    return () => clearTimeout(updateDocumentTimeout); // Cleanup timeout
   }, [editorData, params.id]);
 
   function goToHome() {
-    navigate('/home');
+    navigate('/home'); // Navigate to home page
   }
 
   return (
     <div className='Docs'>
       {isLoading ? (
-        <Loading />
+        <Loading /> // Show loading spinner
       ) : (
         <>
           <div className='button-container'>
@@ -80,11 +83,11 @@ function Docs() {
             </button>
             <button
               onClick={() => {
-                window.print();
+                window.print(); // Print the document
               }}
               className='printButton'
             >
-              Print  <FontAwesomeIcon icon={faFileAlt} /> 
+              Print <FontAwesomeIcon icon={faFileAlt} />
             </button>
           </div>
           <div className='editorContainer'>
