@@ -2,6 +2,7 @@
 
 /* General Styling for the Docs component */
 .Docs {
+    min-height: 80vh;
     padding: 20px;
     box-sizing: border-box;
     background-color: #c9c9c9; /* Clean, white background */
@@ -130,4 +131,133 @@
 /* Hide Page Break (Optional) */
 .page-break {
     display: none; /* Hide page breaks for note-taking view */
+}
+
+.ql-editor {
+	width: 8.5in;
+	min-height: 11in;
+	padding: 6px;
+	margin: 18px;
+	background-color: var(--itemBg-color);
+	color: var(--text-color);
+}
+
+.ql-container.ql-snow {
+	border: none;
+	display: flex;
+	justify-content: center;
+}
+
+.ql-toolbar.ql-snow {
+	display: flex;
+	justify-content: center;
+	position: sticky;
+	border: none;
+	border-bottom: 2px solid var(--bg-color);
+	z-index: 1;
+	top: 0;
+	background-color: var(--itemBg-color);
+	color: var(--text-color);
+}
+.ql-toolbar.ql-snow .ql-formats button svg path {
+	stroke: var(--text-color);
+}
+.ql-toolbar.ql-snow .ql-formats button.ql-active svg path {
+	stroke: var(--reg-color);
+}
+.ql-toolbar.ql-snow .ql-formats button.ql-active svg line {
+	stroke: var(--reg-color);
+}
+.ql-toolbar.ql-snow .ql-formats button.ql-active svg rect {
+	stroke: var(--reg-color);
+}
+.ql-toolbar.ql-snow .ql-formats .ql-italic svg line {
+	stroke: var(--text-color);
+}
+.ql-toolbar.ql-snow .ql-formats .ql-picker-label svg polygon {
+	stroke: var(--text-color);
+}
+.ql-toolbar.ql-snow .ql-formats .ql-picker-label::before {
+	color: var(--text-color);
+}
+.ql-toolbar.ql-snow .ql-formats .ql-color.ql-picker.ql-color-picker .ql-picker-label svg polyline {
+	stroke: var(--text-color);
+}
+.ql-toolbar.ql-snow .ql-formats .ql-color.ql-picker.ql-color-picker .ql-picker-label svg line {
+	stroke: var(--text-color);
+}
+.ql-toolbar.ql-snow .ql-formats .ql-background.ql-picker.ql-color-picker .ql-picker-label svg polyline {
+	stroke: var(--text-color);
+}
+.ql-toolbar.ql-snow .ql-formats .ql-background.ql-picker.ql-color-picker .ql-picker-label svg line {
+	stroke: var(--text-color);
+}
+.ql-toolbar.ql-snow .ql-formats .ql-align.ql-picker.ql-icon-picker .ql-picker-label svg polyline {
+	stroke: var(--text-color);
+}
+.ql-toolbar.ql-snow .ql-formats .ql-image svg rect {
+	stroke: var(--text-color);
+}
+.ql-toolbar.ql-snow .ql-formats .ql-image svg path {
+	stroke: var(--text-color);
+}
+.ql-toolbar.ql-snow .ql-formats .ql-image {
+	color: var(--text-color);
+}
+.ql-editor .ql-align-center {
+	text-align: center;
+}
+.ql-editor .ql-align-right {
+	text-align: right;
+}
+.ql-editor .ql-align-left {
+	text-align: left;
+}
+.ql-editor .ql-font {
+	font-family: var(--text-color);
+}
+.ql-editor .ql-color {
+	color: var(--text-color);
+}
+.ql-editor .ql-background {
+	background-color: var(--itemBg-color);
+}
+.ql-editor .ql-font {
+	font-family: var(--text-color);
+}
+.ql-editor .ql-size {
+	font-size: var(--text-color);
+}
+.ql-editor .ql-direction {
+	direction: var(--text-color);
+}
+.ql-editor .ql-indent {
+	text-indent: var(--text-color);
+}
+.ql-editor .ql-line-height {
+	line-height: var(--text-color);
+}
+.ql-editor .ql-script {
+	font-size: var(--text-color);
+}
+.ql-editor .ql-underline {
+	text-decoration: underline;
+}
+.ql-editor .ql-strike {
+	text-decoration: line-through;
+}
+.ql-editor .ql-code {
+	background-color: var(--itemBg-color);
+	color: var(--text-color);
+}
+.ql-editor .ql-code-block {
+	background-color: var(--itemBg-color);
+	color: var(--text-color);
+}
+.ql-editor .ql-blockquote {
+	border-left: 5px solid var(--reg-color);
+}
+.ql-editor blockquote {
+	font-style: italic;
+	color: var(--text-color);
 }

@@ -41,7 +41,7 @@ const Home = () => {
           ) : docs.length ? (
             docs.map(doc => <DocsItem key={doc.id} value={doc} />)
           ) : (
-            <h2>Click the <span className='create-icon'>+</span> above to create one.</h2>
+            <h2 style={{margin:'0'}}>Click the <span className='create-icon'>+</span> above to create one.</h2>
           )}
         </div>
       </div>

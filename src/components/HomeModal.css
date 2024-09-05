@@ -15,7 +15,7 @@
 .homeAddModal {
 	width: 310px;
 	padding: 20px 30px;
-	background-color: var(--bg-white-color);
+	background-color: #F8F8FF;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;

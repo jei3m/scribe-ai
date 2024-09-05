@@ -41,16 +41,16 @@
 	align-items: center; /* Center items horizontally */
 }
 
-/* Style for the "+" button */
 .homeCreateBtn {
+	margin-top: 10px;
 	color: var(--text-color);
-	padding: 3vw 2vw; /* Padding relative to viewport width */
+	padding: 40px 35px;
 	background-color: #dbdbdb;
-	font-size: 10vw; /* Font size relative to viewport width */
-	color: var(--reg-color);
+	font-size: 90px;
+	color: #007bff;
 	border-radius: 8px;
-	width: 14vw; /* Width relative to viewport width */
-	transition: background-color 0.3s ease; /* Smooth background color transition */
+	width: 120px;
+	height: 180px;
 }
 
 /* Change background color on hover */
