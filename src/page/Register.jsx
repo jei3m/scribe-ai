@@ -5,7 +5,7 @@ import './Login.css';
 import Header from '../components/Header';
 
 function Register() {
-    const { signUpWithEmail, signInWithGoogle } = UserAuth(); // Auth functions
+    const { signUpWithEmail} = UserAuth(); // Auth functions
     const navigate = useNavigate(); // Navigation hook
 
     const [name, setName] = useState(''); // State for name
