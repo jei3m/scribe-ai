@@ -78,6 +78,9 @@ function DocsItem({ value }) {
       </button>
       {isOpen && (
         <div className='openModalCon'>
+          <button onClick={() => handleClick(value.id)} className='opemModalBtn'>
+            Edit Document
+          </button>
           <button onClick={handleChangeV} className='opemModalBtn'>
             Change to {value?.private === true ? 'public' : 'private'}
           </button>

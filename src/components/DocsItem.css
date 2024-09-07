@@ -73,7 +73,7 @@
 .openModalCon {
     width: 130px;
     position: absolute;
-    top: 44px; /* Adjust to ensure modal is not hidden by the button */
+    top: 20px; /* Adjust to ensure modal is not hidden by the button */
     right: 44px;
     background-color: #ffffff;
     z-index: 4;
