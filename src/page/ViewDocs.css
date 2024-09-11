@@ -10,7 +10,7 @@
 /* Main Container */
 .view-docs-container {
     padding: 20px;
-    min-height: 100vh;
+    min-height: 100dvh;
 }
 
 @media (max-width: 768px) {
@@ -46,9 +46,6 @@
     word-wrap: break-word;
 }
 
-
-
-
 /* View Docs Content */
 .ViewDocs {
     width: 8.5in;
@@ -59,11 +56,11 @@
     color: #000000;
 }
 
-@media (max-width: 870px) {
+/* @media (max-width: 870px) {
     .ViewDocs {
         width: clamp(18.75rem, 6.25rem + 62.5vw, 53.125rem);
     }
-}
+} */
 
 /* Hide toolbar for view-only mode */
 .view-only-quill .ql-toolbar {
