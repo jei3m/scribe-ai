@@ -1,16 +1,20 @@
-
 /* General Styling for the Docs component */
+.Docs-container {
+    height: 100dvh;
+    background-color: #c9c9c9;
+}
+
 .Docs {
-    min-height: 80vh;
+    font-size: 18px; /* Increase base font size */
+    min-height: 10in;
     padding: 20px;
     box-sizing: border-box;
     background-color: #c9c9c9; /* Clean, white background */
     margin: 0 auto; /* Center the content */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for separation */
 }
 
 /* Button Container Styling */
-.button-container {
+.button-container { 
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,7 +26,7 @@
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 18px; /* Increase button font size */
     cursor: pointer;
     white-space: nowrap;
     transition: background-color 0.3s, box-shadow 0.3s;
@@ -66,14 +70,14 @@
 /* ReactQuill Styling */
 .ReactQuill {
     margin: 0 auto;
-    max-width: 850px; /* Allow the editor to take full width */
+    max-width: 960px; /* Increase max-width for more content space */
     width: 100%; /* Use full width */
     border-radius: 10px !important;
     background-color: #FAF9F6; /* White background for editor */
 }
 
 /* Toolbar Styling */
-.ql-toolbar {
+.ql-toolbar.ql-snow{
     display: flex;
     flex-wrap: wrap; /* Allow toolbar items to wrap */
     box-sizing: border-box;
@@ -86,6 +90,7 @@
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     margin-bottom: 0; /* Reset margin to align properly with the editor */
+    font-size: 16px; /* Increase toolbar font size */
 }
 
 /* Adjust Dropdown Visibility */
@@ -96,7 +101,10 @@
 /* Media Queries for Mobile Devices */
 @media (max-width: 768px) {
     .Docs {
-        padding: 15px; /* Adjust padding for smaller screens */
+        font-size: 16px; /* Slightly smaller font size for tablets */
+        padding: 0px; /* Adjust padding for smaller screens */
+        height: 100dvh;
+        margin-top: -20px;
     }
 
     .button-container {
@@ -108,23 +116,29 @@
         width: auto; /* Set width to auto for better control */
         max-width: 300px; /* Limit the maximum width */
         margin-bottom: 10px;
+        font-size: 16px; /* Adjust button font size for tablets */
     }
 
     .ReactQuill {
-        min-height: 250px; /* Reduce minimum height for tablets */
+        min-height: 300px; /* Increase minimum height for tablets */
     }
 }
 
 @media (max-width: 480px) {
+    .ql-editor {
+        font-size: 10px !important; /* Increase font size in editor */
+    }
+
     .backButton, .printButton {
-        font-size: 14px; /* Smaller font size for very small screens */
+        font-size: 14px; /* Adjust button font size for mobile */
         padding: 8px 16px; /* Smaller padding */
         max-width: 100%; /* Ensure buttons don't exceed screen width */
     }
 
     .ReactQuill {
-        min-height: 200px; /* Further reduce editor height for very small screens */
+        min-height: 250px; /* Adjust editor height for mobile */
     }
+
 }
 
 /* Hide Page Break (Optional) */
@@ -133,12 +147,13 @@
 }
 
 .ql-editor {
-	width: 8.5in;
-	min-height: 11in;
-	padding: 6px;
-	margin: 18px;
+	width: 9in; /* Slightly wider editor */
+	min-height: 10in; /* Slightly taller editor */
+	padding: 12px; /* Increase padding */
+	margin: 24px; /* Increase margin */
 	background-color: var(--itemBg-color);
 	color: var(--text-color);
+	font-size: 18px; /* Increase font size in editor */
 }
 
 .ql-container.ql-snow {
@@ -259,4 +274,56 @@
 .ql-editor blockquote {
 	font-style: italic;
 	color: var(--text-color);
+}
+
+/* Increase font size for headings */
+.ql-editor h1 { font-size: 2.5em; }
+.ql-editor h2 { font-size: 2em; }
+.ql-editor h3 { font-size: 1.75em; }
+.ql-editor h4 { font-size: 1.5em; }
+.ql-editor h5 { font-size: 1.25em; }
+.ql-editor h6 { font-size: 1.1em; }
+
+/* Print-specific styles */
+@media print {
+  .Docs-container {
+    background-color: transparent;
+    height: auto;
+  }
+
+  .button-container,
+  .ql-toolbar.ql-snow {
+    display: none !important;
+  }
+
+  .Docs {
+    padding: 0;
+    background-color: white;
+    box-shadow: none;
+    margin: 20px;
+    min-height: auto;
+    height: auto;
+  }
+
+  .ReactQuill {
+    border: none;
+  }
+
+  .ql-editor {
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    margin: 0;
+    padding: 0;
+    font-size: 12pt; /* Standard font size for printing */
+  }
+
+  .ql-container.ql-snow {
+    border: none;
+  }
+
+  /* Ensure page breaks are handled correctly */
+  .ql-editor p, .ql-editor h1, .ql-editor h2, .ql-editor h3, .ql-editor h4, .ql-editor h5, .ql-editor h6 {
+    page-break-inside: avoid;
+  }
 }

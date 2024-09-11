@@ -72,6 +72,7 @@ function Docs() {
   }
 
   return (
+    <div className='Docs-container'>
     <div className='Docs'>
       {isLoading ? (
         <Loading /> // Show loading spinner
@@ -102,6 +103,7 @@ function Docs() {
           </div>
         </>
       )}
+    </div>
     </div>
   );
 }

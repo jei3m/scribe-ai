@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal'; // Import React Modal
 import { UserAuth } from '../context/AuthContext';
+import './Header.css'; // Import the new CSS file
 
 // Set app element for accessibility (optional)
 Modal.setAppElement('#root');
@@ -17,45 +18,17 @@ function Header() {
   console.log('Current User:', currentUser);
 
   return (
-    <header style={{
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: '1rem 2rem',
-      backgroundColor: '#FAF9F6',
-      borderBottom: '1px solid #dee2e6',
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '100%',
-      zIndex: 1000
-    }}>
-      <a href='/' style={{
-        textDecoration: 'none',
-        color: '#000',
-        fontWeight: 'bold',
-        fontSize: '1.8rem',
-        marginLeft: '30px'
-      }}>
-        <span style={{ color: '#007bff' }}>Jeiem</span>docs
+    <header className="header">
+      <a href='/' className="header__logo">
+        <span className="header__logo--highlight">Jeiem</span>docs
       </a>
-      <div style={{
-        display: 'flex',
-        alignItems: 'center'
-      }}>
+      <div className="header__user">
         {currentUser && (
           <>
             <img
               src={currentUser.photoURL}
               alt='User Avatar'
-              style={{
-                width: '50px',
-                height: '50px',
-                borderRadius: '50%',
-                marginRight: '2rem',
-                border: '3px solid #007bff',
-                cursor: 'pointer' // Add cursor pointer for clickable image
-              }}
+              className="header__user-avatar"
               onClick={openModal} // Open modal on click
             />
             <Modal
@@ -82,68 +55,24 @@ function Header() {
               }}
               contentLabel='Profile Modal'
             >
-              <h2>User Profile</h2>
+              <h2 className='modal_h2'>User Profile</h2>
               <img
                 src={currentUser.photoURL}
                 alt='User Avatar'
-                style={{
-                  width: '100px',
-                  height: '100px',
-                  borderRadius: '50%',
-                  marginBottom: '1rem',
-                  marginTop: '10px'
-                }}
+                className="modal__user-avatar"
               />
               <p><strong>Name:</strong> {currentUser.displayName || 'No name provided'}</p>
               <p><strong>Email:</strong> {currentUser.email}</p>
-              <div style={{ marginTop: '1rem' }}>
+              <div className="modal__buttons">
                 <button
                   onClick={closeModal}
-                  style={{
-                    background: '#6c757d',
-                    border: 'none',
-                    color: '#ffffff',
-                    fontSize: '1rem',
-                    cursor: 'pointer',
-                    borderRadius: '4px',
-                    padding: '0.5rem 1rem',
-                    display: 'inline-block',
-                    marginRight: '0.5rem', // Add spacing between buttons
-                    transition: 'background-color 0.3s ease, transform 0.3s ease' // Add transition
-                  }}
-                  onMouseOver={e => {
-                    e.currentTarget.style.backgroundColor = '#5a6268'; // Lighter gray on hover
-                    e.currentTarget.style.transform = 'scale(1.05)';
-                  }}
-                  onMouseOut={e => {
-                    e.currentTarget.style.backgroundColor = '#6c757d'; // Original gray color
-                    e.currentTarget.style.transform = 'scale(1)';
-                  }}
+                  className="modal__button modal__button--close"
                 >
                   Close
                 </button>
                 <button
                   onClick={logOut}
-                  style={{
-                    background: '#007bff',
-                    border: 'none',
-                    color: '#ffffff',
-                    fontSize: '1rem',
-                    cursor: 'pointer',
-                    transition: 'background-color 0.3s ease, transform 0.3s ease',
-                    borderRadius: '4px',
-                    padding: '0.5rem 1rem',
-                    display: 'inline-block',
-                    marginLeft: '0.5rem' // Add spacing between buttons
-                  }}
-                  onMouseOver={e => {
-                    e.currentTarget.style.backgroundColor = '#0056b3';
-                    e.currentTarget.style.transform = 'scale(1.05)';
-                  }}
-                  onMouseOut={e => {
-                    e.currentTarget.style.backgroundColor = '#007bff';
-                    e.currentTarget.style.transform = 'scale(1)';
-                  }}
+                  className="modal__button modal__button--logout"
                 >
                   Log Out
                 </button>

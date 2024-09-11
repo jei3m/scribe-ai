@@ -60,7 +60,7 @@ function Login() {
                         type="email" 
                         placeholder="Email" 
                         id="email" 
-                        name="email" 
+                        name="email"
                     />
                     <input 
                         value={pass} 

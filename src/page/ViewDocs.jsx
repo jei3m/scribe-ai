@@ -35,7 +35,12 @@ function ViewDocs() {
 			{isLoading ? (
 				<Loading />
 			) : (
-				<ReactQuill value={textData} readOnly={true} className="responsive-quill" />
+				<ReactQuill 
+					value={textData} 
+					readOnly={true} 
+					className="responsive-quill view-only-quill" 
+					modules={{toolbar: false}} // Disable toolbar
+				/>
 			)}
 		</div>
 	)
