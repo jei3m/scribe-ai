@@ -1,6 +1,5 @@
 /* General Styling for the Docs component */
 .Docs-container {
-    height: 100dvh;
     background-color: #c9c9c9;
 }
 
@@ -74,6 +73,8 @@
     width: 100%; /* Use full width */
     border-radius: 10px !important;
     background-color: #FAF9F6; /* White background for editor */
+    font-family: 'Encode Sans', sans-serif; /* Add font family */
+
 }
 
 /* Toolbar Styling */
@@ -103,7 +104,6 @@
     .Docs {
         font-size: 16px; /* Slightly smaller font size for tablets */
         padding: 0px; /* Adjust padding for smaller screens */
-        height: 100dvh;
         margin-top: -20px;
     }
 
@@ -148,12 +148,13 @@
 
 .ql-editor {
 	width: 9in; /* Slightly wider editor */
-	min-height: 10in; /* Slightly taller editor */
+	min-height: 10in; 
 	padding: 12px; /* Increase padding */
 	margin: 24px; /* Increase margin */
 	background-color: var(--itemBg-color);
 	color: var(--text-color);
 	font-size: 18px; /* Increase font size in editor */
+    font-family: 'Encode Sans', sans-serif; /* Add font family */
 }
 
 .ql-container.ql-snow {
