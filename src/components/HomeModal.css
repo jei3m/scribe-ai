@@ -20,6 +20,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
+    font-family: 'Encode Sans', sans-serif; /* Add font family */
 }
 
 .homeAddModal input[type='text'] {
