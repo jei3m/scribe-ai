@@ -1,14 +1,11 @@
 /* General Styling for the Docs component */
-.Docs-container {
-    background-color: #c9c9c9;
-}
 
 .Docs {
     font-size: 18px; /* Increase base font size */
     min-height: 10in;
     padding: 20px;
     box-sizing: border-box;
-    background-color: #c9c9c9; /* Clean, white background */
+    background-color:  #333333; /* Clean, white background */
     margin: 0 auto; /* Center the content */
 }
 
@@ -102,7 +99,7 @@
 /* Media Queries for Mobile Devices */
 @media (max-width: 768px) {
     .Docs {
-        font-size: 16px; /* Slightly smaller font size for tablets */
+        font-size: 18px; /* Slightly smaller font size for tablets */
         padding: 0px; /* Adjust padding for smaller screens */
         margin-top: -20px;
     }
