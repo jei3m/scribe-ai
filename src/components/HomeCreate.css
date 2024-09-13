@@ -47,11 +47,11 @@
 	margin-top: 10px !important;
 	color: var(--text-color);
 	background-color: #cfcfcf;
-	font-size: 90px;
+	font-size: 10vw; /* Adjust font size responsively */
 	color: #007bff;
 	border-radius: 10px;
-	width: 120px;
-	height: 170px;
+	width: 14vw; /* Use viewport width */
+	aspect-ratio: 120 / 170; /* Maintain aspect ratio */
 	margin: 0;
 }
 
