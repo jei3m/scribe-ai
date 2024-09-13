@@ -48,10 +48,9 @@
 	background-color: #cfcfcf;
 	font-size: 90px;
 	color: #007bff;
-	border-radius: 8px;
+	border-radius: 10px;
 	width: 120px;
 	height: 170px;
-	margin: 0 auto;
 }
 
 /* Change background color on hover */
