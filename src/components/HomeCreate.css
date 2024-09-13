@@ -19,10 +19,11 @@
 /* Style for the main instruction text */
 .homeCreateText {
 	font-size: 8vw; /* Font size relative to viewport width for larger screens */
-	color: #333; /* Dark gray text color */
+	color: #292929;
 	font-weight: bold; /* Make the text bold */
 	margin: 0; /* Remove default margin */
 	line-height: 1.1; /* Line height for better readability */
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Style for the sub instruction text */
@@ -44,14 +45,13 @@
 .homeCreateBtn {
 	margin-top: 10px !important;
 	color: var(--text-color);
-	padding: 40px 35px;
 	background-color: #cfcfcf;
 	font-size: 90px;
 	color: #007bff;
 	border-radius: 8px;
 	width: 120px;
-	height: 180px;
-	margin: 0;
+	height: 170px;
+	margin: 0 auto;
 }
 
 /* Change background color on hover */
