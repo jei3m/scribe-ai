@@ -52,7 +52,7 @@
 	border-radius: 10px;
 	width: 14vw; /* Use viewport width */
 	aspect-ratio: 120 / 170; /* Maintain aspect ratio */
-	margin: 0;
+	margin: 0 auto;
 }
 
 /* Change background color on hover */
