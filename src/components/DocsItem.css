@@ -2,8 +2,8 @@
     max-width: 220px; /* Reduced width */
     min-width: 210px; /* Reduced width */
     height: 290px; /* Reduced height */
-    border-radius: 10px; /* Slightly smaller border radius */
-    background-color: #cccccc;
+    border-radius: 12px; /* Slightly smaller border radius */
+    background-color: #bbbbbb;
     padding: 16px; /* Reduced padding */
     color: #333333;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.452);
@@ -19,7 +19,7 @@
 }
 
 .docsItem:hover {
-    background-color: #838383;
+    background-color: #7a7a7a;
 }
 
 .docsTitle {
@@ -34,7 +34,7 @@
 
 .docsItemContent {
     background-color: #ffffff;
-    border-radius: 8px;
+    border-radius: 12px;
     width: 195px;
     padding: 15px;
     overflow-y: auto;
