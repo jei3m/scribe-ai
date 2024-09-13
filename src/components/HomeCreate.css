@@ -47,12 +47,14 @@
 	margin-top: 10px !important;
 	color: var(--text-color);
 	background-color: #cfcfcf;
-	font-size: 10vw; /* Adjust font size responsively */
+	font-size: 90px; /* Adjust font size responsively */
 	color: #007bff;
 	border-radius: 10px;
-	width: 14vw; /* Use viewport width */
-	aspect-ratio: 120 / 170; /* Maintain aspect ratio */
+	width:120px;
+	height: 160px;
 	margin: 0 auto;
+	justify-content: center;
+	align-items: center;
 }
 
 /* Change background color on hover */
