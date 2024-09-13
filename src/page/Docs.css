@@ -1,9 +1,12 @@
 /* General Styling for the Docs component */
+.Docs-container{
+  background-color:  #333333;
+}
 
 .Docs {
     font-size: 18px; /* Increase base font size */
     min-height: 10in;
-    padding: 20px;
+    padding: 0px;
     box-sizing: border-box;
     background-color:  #333333; /* Clean, white background */
     margin: 0 auto; /* Center the content */
@@ -14,7 +17,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    padding: 10px;
+    margin-top: 20px !important;
+    background-color: #FAF9F6;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    max-width: 960px;
+    margin: 0 auto;
 }
 
 /* Button Styling */
@@ -30,31 +39,23 @@
 
 /* Back Button Styling */
 .backButton {
-    position: fixed;
-    left: 10%;
-    bottom: 20px;
-    z-index: 2;
-    background-color: #007bff; /* Primary color for back button */
-    color: #ffffff;
+    color: #333333;
 }
 
 /* Print Button Styling */
 .printButton {
-    position: fixed;
-    right: 10%;
-    bottom: 20px;
-    z-index: 2;
-    background-color: #28a745; /* Different color for print button */
-    color: #ffffff;
+    color: #333333;
 }
 
 /* Button Hover Effects */
 .backButton:hover {
-    background-color: #0056b3; /* Darker shade for back button on hover */
+    background-color: #000000; 
+    color: #ffffff;
 }
 
 .printButton:hover {
-    background-color: #218838; /* Darker shade for print button on hover */
+    background-color: #000000; 
+    color: #ffffff;
 }
 
 /* Editor Container Styling */
@@ -142,15 +143,16 @@
     }
 
     .button-container {
-        flex-direction: column;
-        align-items: center; /* Center align buttons */
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 10px !important;
     }
 
     .backButton, .printButton {
-        width: auto; /* Set width to auto for better control */
-        max-width: 300px; /* Limit the maximum width */
-        margin-bottom: 10px;
-        font-size: 16px; /* Adjust button font size for tablets */
+        width: auto;
+        max-width: none;
+        margin-bottom: 0;
+        font-size: 16px;
     }
 
     .ReactQuill {
@@ -164,10 +166,14 @@
         font-size: 10px !important; /* Increase font size in editor */
     }
 
+    .button-container {
+        flex-direction: row;
+        padding: 6px !important;
+    }
+
     .backButton, .printButton {
-        font-size: 14px; /* Adjust button font size for mobile */
-        padding: 8px 16px; /* Smaller padding */
-        max-width: 100%; /* Ensure buttons don't exceed screen width */
+        font-size: 12px !important; /* Adjust button font size for mobile *//* Smaller padding */
+        max-width: auto; /* Ensure buttons don't exceed screen width */
     }
 
     .ReactQuill {
@@ -325,7 +331,7 @@
     padding: 0;
     background-color: white;
     box-shadow: none;
-    margin: 20px;
+    margin: 24px;
     min-height: auto;
     height: auto;
   }

@@ -5,6 +5,8 @@ import { db } from '../firebase'
 import Loading from './Loading'
 import { UserAuth } from '../context/AuthContext'
 import ReactQuill from 'react-quill'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import './ViewDocs.css' 
 
 function ViewDocs() {
@@ -30,8 +32,13 @@ function ViewDocs() {
 		return documentUnsubscribe
 	}, [currentUser.email, params.id, navigate])
 
+	function goToHome() {
+		navigate('/home'); // Navigate to home page
+	  }
+
 	return (
-		<div className='view-docs-container'>
+		<div className='ViewDocs'>
+		 <div className='view-docs-container'>
 			{isLoading ? (
 				<Loading />
 			) : (
@@ -42,6 +49,20 @@ function ViewDocs() {
 					modules={{toolbar: false}} // Disable toolbar
 				/>
 			)}
+		 </div>
+			<div className='button-container-view'>
+				<button onClick={goToHome} className='backButton'>
+				<FontAwesomeIcon icon={faArrowLeft} /> Back
+				</button>
+				<button
+				onClick={() => {
+					window.print(); // Print the document
+				}}
+				className='printButton'
+				>
+				Print <FontAwesomeIcon icon={faFileAlt} />
+				</button>
+			</div>
 		</div>
 	)
 }

@@ -78,6 +78,18 @@ function Docs() {
         <Loading /> // Show loading spinner
       ) : (
         <>
+          <div className='editorContainer'>
+            <ReactQuill
+              ref={editorRef}
+              modules={modules}
+              theme='snow'
+              value={editorData}
+              onChange={handleChange}
+              className='ReactQuill'
+            />
+          </div>
+        </>
+      )}
           <div className='button-container'>
             <button onClick={goToHome} className='backButton'>
               <FontAwesomeIcon icon={faArrowLeft} /> Back
@@ -91,18 +103,6 @@ function Docs() {
               Print <FontAwesomeIcon icon={faFileAlt} />
             </button>
           </div>
-          <div className='editorContainer'>
-            <ReactQuill
-              ref={editorRef}
-              modules={modules}
-              theme='snow'
-              value={editorData}
-              onChange={handleChange}
-              className='ReactQuill'
-            />
-          </div>
-        </>
-      )}
     </div>
     </div>
   );
