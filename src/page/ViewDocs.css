@@ -13,6 +13,7 @@
     padding: 0px;
     min-height: 100dvh;
     background-color: #333333;
+    margin-top: 30px;
 }
 
 @media (max-width: 1000px) {
