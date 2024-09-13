@@ -9,7 +9,7 @@
 
 /* Main Container */
 .view-docs-container {
-    padding: 20px;
+    padding: 0px;
     min-height: 100dvh;
     background-color: #333333;
 }
@@ -19,7 +19,6 @@
         padding: 0px;
         width: 100%;
     }
-
     .responsive-quill {
         max-width: 100%;
         border-radius: 12px !important;
