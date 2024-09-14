@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate, useLocation } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import "./Chat.css";
 
-const Chat = () => {
+const Chat = ({ selectedText, onClose }) => {
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ const Chat = () => {
   const API_KEY = process.env.REACT_APP_API_KEY;
   const navigate = useNavigate();
   const location = useLocation();
-  const selectedText = location.state?.selectedText || '';
+  // const selectedText = location.state?.selectedText || '';
 
   // Utility function to sanitize and format the text
   const sanitizeText = (text) => {
@@ -112,18 +112,27 @@ const Chat = () => {
     setMessages([]);
   };
 
-  const goBack = () => {
-    navigate(-1);
-  };
-
   return (
     <div className="chat-container">
       <ToastContainer />
       <div className="header-chat">
         <h2 className="chat-title">ScribeAI</h2>
-        <button className="back-button" onClick={goBack}>
-          <FontAwesomeIcon icon={faArrowLeft} />
-          Back
+        <button 
+          className="close-button" 
+          onClick={onClose}
+          style={{
+            backgroundColor: 'transparent',
+            border: 'none',
+            color: '#333',
+            fontSize: '1.2rem',
+            cursor: 'pointer',
+            padding: '5px',
+            transition: 'color 0.3s ease'
+          }}
+          onMouseOver={(e) => e.target.style.color = '#ff0000'}
+          onMouseOut={(e) => e.target.style.color = '#333'}
+        >
+          <FontAwesomeIcon icon={faTimes} />
         </button>
       </div>
       <div className="messages-container">

@@ -442,8 +442,14 @@
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
     overflow: hidden; /* Add this line to prevent background scrolling */
+    z-index: 1000;
   }
 
 .hide-toolbar .ql-toolbar {
   display: none !important;
+}
+
+/* Add this at the end of your CSS file */
+body.modal-open {
+  overflow: hidden;
 }

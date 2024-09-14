@@ -11,6 +11,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faCommentDots, faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import "quill/dist/quill.snow.css";
 import imageResize from 'quill-image-resize-module-react';
+import Chat from './Chat'; // Import the Chat component
+import Modal from 'react-modal'; // Import react-modal
 
 Quill.register('modules/imageResize', imageResize);
 
@@ -43,6 +45,7 @@ function Docs() {
   const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0 });
   const buttonRef = useRef(null);
   const [isButtonPressed, setIsButtonPressed] = useState(false);
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
 
   useEffect(() => {
     const documentUnsubscribe = onSnapshot(
@@ -98,6 +101,26 @@ function Docs() {
     navigate('/home');
   }
 
+  const openChatModal = () => {
+    setIsChatModalOpen(true);
+  };
+
+  const closeChatModal = () => {
+    setIsChatModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (isChatModalOpen) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
+  }, [isChatModalOpen]);
+
   return (
     <div className='Docs-container'>
       <div className='Docs'>
@@ -128,7 +151,7 @@ function Docs() {
                     position: 'absolute', // Add this line
                     transform: 'translateX(-50%)', // Add this line
                   }}
-                  onClick={() => navigate('/chat', { state: { selectedText } })} // Change to onClick
+                  onClick={openChatModal} // Change to onClick
                 >
                   Analyze 🧠
                 </button>
@@ -140,7 +163,7 @@ function Docs() {
           <button onClick={goToHome} className='backButton'>
             <FontAwesomeIcon icon={faArrowLeft} /> Back
           </button>
-          <button onClick={() => navigate('/chat')} className='printButton'>
+          <button onClick={openChatModal} className='printButton'>
             ScribeAI 🧠
           </button>
           <button
@@ -153,6 +176,15 @@ function Docs() {
           </button>
         </div>
       </div>
+      <Modal
+        isOpen={isChatModalOpen}
+        onRequestClose={closeChatModal}
+        contentLabel="Chat Modal"
+        className="chat-modal"
+        overlayClassName="chat-modal-overlay"
+      >
+        <Chat selectedText={selectedText} onClose={closeChatModal} />
+      </Modal>
     </div>
   );
 }
