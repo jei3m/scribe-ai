@@ -6,6 +6,8 @@ import PrivateRoutes from './routes/PrivateRoutes'
 import ErrorPage from './page/ErrorPage'
 import ViewDocs from './page/ViewDocs'
 import Register from './page/Register'
+import Test from './page/test'
+import Chat from './page/Chat'
 
 function App() {
 	return (
@@ -20,6 +22,14 @@ function App() {
 					</PrivateRoutes>
 				}
 			/>
+			<Route
+				path='/chat'
+				element={
+					<PrivateRoutes>
+						<Chat />
+					</PrivateRoutes>
+				}
+			></Route>
 			<Route
 				path='/document/:id'
 				element={

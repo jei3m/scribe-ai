@@ -1,0 +1,177 @@
+/* Chat.css */
+
+/* Chat container */
+.chat-container {
+    position: relative;
+    padding: 24px;
+    background-color: #f0f0f0;
+    height: 90vh;
+    width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.header-chat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -20px; /* Move the header up */
+    margin-bottom: -10px; /* Adjust space between header and messages */
+}
+
+.chat-title {
+    text-align: center;
+    margin: 0; /* Remove bottom margin to align with header */
+}
+
+.chat-title h2 {
+    font-size: 28px; /* Increase font size */
+    color: #333;
+    margin: 0;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    border: none;
+    color: #292929;
+    cursor: pointer;
+    font-size: 16px; /* Adjust font size */
+    font-weight: 600;
+    padding: 10px;
+    transition: color 0.3s;
+    border-radius: 8px;
+}
+
+.back-button svg {
+    font-size: 16px;
+    margin-right: 6px;
+}
+
+.messages-container {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 20px; /* Increase margin for more spacing */
+    
+    /* Hide scrollbar for WebKit browsers */
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+}
+
+/* Hide scrollbar for WebKit browsers */
+.messages-container::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in WebKit-based browsers */
+}
+
+.message {
+    padding: 16px; /* Increase padding */
+    margin: 10px 0; /* Increase margin */
+    border-radius: 12px;
+    font-size: 18px; /* Increase font size */
+    width: fit-content;
+    max-width: 85%; /* Slightly increase width */
+    word-wrap: break-word;
+}
+
+.message.user {
+    background-color: #3693f7;
+    color: #fff;
+    text-align: right;
+    margin-left: auto;
+}
+
+.message.ai {
+    background-color: #292929;
+    color: #fff;
+    text-align: left;
+}
+
+.input-container {
+    display: flex;
+    align-items: stretch; /* Ensure both input and button are of equal height */
+    gap: 12px; /* Increase gap for better spacing */
+    padding-top: 12px; /* Increase padding */
+}
+
+.search-button {
+    background: #3693f7; 
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%; /* Match the height of the input container */
+    min-width: 60px; /* Ensure button is large enough */
+    padding: 0 16px; /* Add horizontal padding */
+}
+
+/* Loading spinner */
+.loading-spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1); /* Light grey */
+    border-left: 4px solid #fff; /* White */
+    border-radius: 50%;
+    width: 1em;
+    height: 1em;
+    animation: spin 1s linear infinite;
+}
+
+/* Spinner animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.message-input {
+    flex: 1;
+    padding: 16px; /* Increase padding */
+    background-color: #131314;
+    border-radius: 12px;
+    color: white;
+    border: none;
+    font-size: 18px; /* Increase font size */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .chat-container {
+        padding: 16px; /* Increase padding */
+        width: 100%; /* Full width on small screens */
+        height: 100dvh; /* Increase height on small screens */
+        border-radius: 0px;
+        position: absolute;
+    }
+
+    .message-input {
+        font-size: 16px; /* Increase font size */
+        height: 50px; /* Increase height */
+    }
+
+    .search-button {
+        padding: 0 8px; /* Adjust padding for smaller screens */
+    }
+
+    .message {
+        font-size: 16px; /* Increase font size */
+    }
+
+    .messages-container {
+        max-height: calc(100vh - 140px); /* Adjust for mobile view */
+    }
+
+    .profile-pic {
+        width: 35px; /* Adjust profile picture size for mobile */
+        height: 35px;
+        margin-right: 8px;
+    }
+}

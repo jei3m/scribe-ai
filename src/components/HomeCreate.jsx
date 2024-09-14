@@ -9,8 +9,8 @@ const HomeCreate = ({ setIsAdd }) => {
       <div className="container">
         <div className="header-content">
           <div className="title-container">
-            <h1 className="main-title">Start adding</h1>
-            <p className="sub-title">DOCUMENTS</p>
+            <h1 className="main-title">Select text</h1>
+            <p className="sub-title">to analyze with ScribeAI <span style={{ color: 'white' }}>🧠</span></p>
             <div className="title-underline"></div>
           </div>
           <button

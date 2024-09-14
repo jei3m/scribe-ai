@@ -56,7 +56,7 @@
     }
 
     .backButton, .printButton {
-        font-size: 12px !important; /* Adjust button font size for mobile *//* Smaller padding */
+        font-size: 14px !important; /* Adjust button font size for mobile *//* Smaller padding */
         max-width: auto; /* Ensure buttons don't exceed screen width */
     }
 }

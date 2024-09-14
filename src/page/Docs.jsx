@@ -1,6 +1,6 @@
 import { collection, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState, useRef } from 'react';
-import ReactQuill, { Quill } from 'react-quill'; // Import Quill from react-quill
+import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { db } from '../firebase';
@@ -8,25 +8,21 @@ import './Docs.css';
 import { UserAuth } from '../context/AuthContext';
 import Loading from './Loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faFileAlt } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faCommentDots, faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import "quill/dist/quill.snow.css";
 import imageResize from 'quill-image-resize-module-react';
 
-// Import Quill and register the imageResize module
 Quill.register('modules/imageResize', imageResize);
 
-// Toolbar options for ReactQuill
 const TOOL_BAR_OPTIONS = [
   [{ header: [1, 2, 3, 4, 5, 6, false] }],
   [{ font: [] }],
   [{ list: 'ordered' }, { list: 'bullet' }],
   ['bold', 'italic', 'underline'],
   [{ align: [] }],
-  // [{ color: [] }, { background: [] }],
   ['image', 'blockquote', 'code-block'],
 ];
 
-// ReactQuill modules configuration
 const modules = {
   toolbar: {
     container: TOOL_BAR_OPTIONS,
@@ -37,36 +33,121 @@ const modules = {
 };
 
 function Docs() {
-  const params = useParams(); // Get document ID from URL parameters
-  const [editorData, setEditorData] = useState(null); // State for editor content
-  const [isLoading, setIsLoading] = useState(true); // State for loading status
-  const { currentUser } = UserAuth(); // Authentication context
-  const navigate = useNavigate(); // Navigation hook
-  const editorRef = useRef(null); // Ref for ReactQuill component
+  const params = useParams();
+  const [editorData, setEditorData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const { currentUser } = UserAuth();
+  const navigate = useNavigate();
+  const editorRef = useRef(null);
+  const [selectedText, setSelectedText] = useState('');
+  const [buttonPosition, setButtonPosition] = useState({ x: window.innerWidth / 2 - 50, y: window.innerHeight / 2 - 20 });
+  const [isDragging, setIsDragging] = useState(false);
+  const buttonRef = useRef(null);
+  const [lastClickTime, setLastClickTime] = useState(0);
+  const docsRef = useRef(null);
 
   useEffect(() => {
-    // Subscribe to document changes
     const documentUnsubscribe = onSnapshot(
       doc(collection(db, 'docs-data'), params.id),
       (res) => {
         const data = res.data();
         if (data.author !== currentUser.email) {
-          navigate('/error'); // Redirect if user is not the author
+          navigate('/error');
         } else {
-          setEditorData(data.body); // Set editor content
-          setIsLoading(false); // Loading complete
+          setEditorData(data.body);
+          setIsLoading(false);
         }
       }
     );
-    return documentUnsubscribe; // Cleanup subscription on component unmount
+    return documentUnsubscribe;
   }, [currentUser.email, params.id, navigate]);
 
   function handleChange(value) {
-    setEditorData(value); // Update editor content
+    setEditorData(value);
   }
 
+  const handleTextSelection = () => {
+    const selection = window.getSelection();
+    const text = selection.toString().trim();
+    setSelectedText(text);
+  };
+
+  // Text selection for touch devices
+  const handleTouchSelection = (e) => {
+    handleTextSelection();
+  };
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    const startX = e.pageX - buttonPosition.x;
+    const startY = e.pageY - buttonPosition.y;
+
+    const handleMouseMove = (e) => {
+      if (docsRef.current) {
+        const rect = docsRef.current.getBoundingClientRect();
+        const newX = e.pageX - startX;
+        const newY = e.pageY - startY;
+
+        setButtonPosition({
+          x: Math.max(rect.left, Math.min(newX, rect.right - buttonRef.current.offsetWidth)),
+          y: Math.max(rect.top, Math.min(newY, rect.bottom - buttonRef.current.offsetHeight)),
+        });
+      }
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  };
+
+  // Drag handling for touch devices
+  const handleTouchStart = (e) => {
+    setIsDragging(true);
+    const touch = e.touches[0];
+    const startX = touch.pageX - buttonPosition.x;
+    const startY = touch.pageY - buttonPosition.y;
+
+    const handleTouchMove = (e) => {
+      if (docsRef.current) {
+        const rect = docsRef.current.getBoundingClientRect();
+        const touch = e.touches[0];
+        const newX = touch.pageX - startX;
+        const newY = touch.pageY - startY;
+
+        setButtonPosition({
+          x: Math.max(rect.left, Math.min(newX, rect.right - buttonRef.current.offsetWidth)),
+          y: Math.max(rect.top, Math.min(newY, rect.bottom - buttonRef.current.offsetHeight)),
+        });
+      }
+    };
+
+    const handleTouchEnd = () => {
+      setIsDragging(false);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
+    };
+
+    document.addEventListener('touchmove', handleTouchMove);
+    document.addEventListener('touchend', handleTouchEnd);
+  };
+
+  const handleDoubleClick = (e) => {
+    const currentTime = new Date().getTime();
+    const timeSinceLastClick = currentTime - lastClickTime;
+
+    if (timeSinceLastClick < 6000) {
+      // Double click detected
+      navigate('/chat', { state: { selectedText } });
+    }
+    setLastClickTime(currentTime);
+  };
+
   useEffect(() => {
-    // Debounce document update
     const updateDocumentTimeout = setTimeout(() => {
       if (editorData !== null) {
         updateDoc(doc(collection(db, 'docs-data'), params.id), {
@@ -74,21 +155,25 @@ function Docs() {
         });
       }
     }, 500);
-    return () => clearTimeout(updateDocumentTimeout); // Cleanup timeout
+    return () => clearTimeout(updateDocumentTimeout);
   }, [editorData, params.id]);
 
   function goToHome() {
-    navigate('/home'); // Navigate to home page
+    navigate('/home');
   }
 
   return (
     <div className='Docs-container'>
-      <div className='Docs'>
+      <div className='Docs' ref={docsRef}>
         {isLoading ? (
-          <Loading /> // Show loading spinner
+          <Loading />
         ) : (
           <>
-            <div className='editorContainer'>
+            <div
+              className='editorContainer'
+              onMouseUp={handleTextSelection}
+              onTouchEnd={handleTouchSelection} // Handle touch selection
+            >
               <ReactQuill
                 ref={editorRef}
                 modules={modules}
@@ -97,6 +182,24 @@ function Docs() {
                 onChange={handleChange}
                 className='ReactQuill'
               />
+              {selectedText && (
+                <button
+                  ref={buttonRef}
+                  className='askAiButton'
+                  style={{
+                    position: 'fixed',
+                    left: `${buttonPosition.x}px`,
+                    top: `${buttonPosition.y}px`,
+                    cursor: isDragging ? 'grabbing' : 'move',
+                    userSelect: 'none',
+                  }}
+                  onMouseDown={handleMouseDown}
+                  onTouchStart={handleTouchStart} // Handle touch drag start
+                  onDoubleClick={handleDoubleClick}
+                >
+                  Double Tap to Analyze 🧠
+                </button>
+              )}
             </div>
           </>
         )}
@@ -104,9 +207,12 @@ function Docs() {
           <button onClick={goToHome} className='backButton'>
             <FontAwesomeIcon icon={faArrowLeft} /> Back
           </button>
+          <button onClick={() => navigate('/chat')} className='printButton'>
+            ScribeAI 🧠
+          </button>
           <button
             onClick={() => {
-              window.print(); // Print the document
+              window.print();
             }}
             className='printButton'
           >
