@@ -110,7 +110,7 @@ const Chat = () => {
     <div className="chat-container">
       <ToastContainer />
       <div className="header-chat">
-        <h2>Inscribe AI</h2>
+        <h2 className="chat-title">ScribeAI</h2>
         <button className="back-button" onClick={goBack}>
           <FontAwesomeIcon icon={faArrowLeft} />
           Back

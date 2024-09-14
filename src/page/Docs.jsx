@@ -41,14 +41,8 @@ function Docs() {
   const editorRef = useRef(null);
   const [selectedText, setSelectedText] = useState('');
   const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
   const buttonRef = useRef(null);
-  const [touchStartTime, setTouchStartTime] = useState(0);
-  const [touchStartPosition, setTouchStartPosition] = useState({ x: 0, y: 0 });
-
-  const preventScroll = (e) => {
-    e.preventDefault();
-  };
+  const [isButtonPressed, setIsButtonPressed] = useState(false);
 
   useEffect(() => {
     const documentUnsubscribe = onSnapshot(
@@ -71,6 +65,8 @@ function Docs() {
   }
 
   const handleTextSelection = () => {
+    if (isButtonPressed) return; // Don't update position if button is being pressed
+
     const selection = window.getSelection();
     const text = selection.toString().trim();
     setSelectedText(text);
@@ -82,89 +78,10 @@ function Docs() {
 
       setButtonPosition({
         x: rect.left - editorRect.left + rect.width / 2,
-        y: rect.top - editorRect.top + 20 // 10px above the selection
+        y: rect.top - editorRect.top + 20
       });
     }
   };
-
-  // Text selection for touch devices
-  // const handleTouchSelection = (e) => {
-  //   handleTextSelection();
-  // };
-
-  // const handleMouseDown = (e) => {
-  //   setIsDragging(true);
-  //   const startX = e.pageX - buttonPosition.x;
-  //   const startY = e.pageY - buttonPosition.y;
-
-  //   // const handleMouseMove = (e) => {
-  //   //   if (docsRef.current) {
-  //   //     const rect = docsRef.current.getBoundingClientRect();
-  //   //     const newX = e.pageX - startX;
-  //   //     const newY = e.pageY - startY;
-
-  //   //     setButtonPosition({
-  //   //       x: Math.max(rect.left, Math.min(newX, rect.right - buttonRef.current.offsetWidth)),
-  //   //       y: Math.max(rect.top, Math.min(newY, rect.bottom - buttonRef.current.offsetHeight)),
-  //   //     });
-  //   //   }
-  //   // };
-
-  //   // const handleMouseUp = () => {
-  //   //   setIsDragging(false);
-  //   //   document.removeEventListener('mousemove', handleMouseMove);
-  //   //   document.removeEventListener('mouseup', handleMouseUp);
-  //   // };
-
-  //   // document.addEventListener('mousemove', handleMouseMove);
-  //   // document.addEventListener('mouseup', handleMouseUp);
-  // };
-
-  // Drag handling for touch devices
-  // const handleTouchStart = (e) => {
-  //   const touch = e.touches[0];
-  //   const startX = touch.pageX - buttonPosition.x;
-  //   const startY = touch.pageY - buttonPosition.y;
-  //   setTouchStartPosition({ x: startX, y: startY });
-  //   setTouchStartTime(new Date().getTime());
-
-  //   const handleTouchMove = (e) => {
-  //     e.preventDefault();
-  //     if (docsRef.current) {
-  //       const rect = docsRef.current.getBoundingClientRect();
-  //       const touch = e.touches[0];
-  //       const newX = touch.pageX - startX;
-  //       const newY = touch.pageY - startY;
-
-  //       setButtonPosition({
-  //         x: Math.max(rect.left, Math.min(newX, rect.right - buttonRef.current.offsetWidth)),
-  //         y: Math.max(rect.top, Math.min(newY, rect.bottom - buttonRef.current.offsetHeight)),
-  //       });
-  //     }
-  //   };
-
-  //   const handleTouchEnd = (e) => {
-  //     const touchEndTime = new Date().getTime();
-  //     const touchDuration = touchEndTime - touchStartTime;
-  //     const touch = e.changedTouches[0];
-  //     const endX = touch.pageX - buttonPosition.x;
-  //     const endY = touch.pageY - buttonPosition.y;
-  //     const distance = Math.sqrt(
-  //       Math.pow(endX - touchStartPosition.x, 2) + Math.pow(endY - touchStartPosition.y, 2)
-  //     );
-
-  //     if (touchDuration < 200 && distance < 10) {
-  //       // This was a tap, not a drag
-  //       handleDoubleClick(e);
-  //     }
-
-  //     document.removeEventListener('touchmove', handleTouchMove);
-  //     document.removeEventListener('touchend', handleTouchEnd);
-  //   };
-
-  //   document.addEventListener('touchmove', handleTouchMove, { passive: false });
-  //   document.addEventListener('touchend', handleTouchEnd);
-  // };
 
   const handleSingleClick = () => {
     navigate('/chat', { state: { selectedText } });
@@ -212,6 +129,8 @@ function Docs() {
                   style={{
                     left: `${buttonPosition.x}px`,
                     top: `${buttonPosition.y}px`,
+                    position: 'fixed', // Add this line
+                    transform: 'translateX(-50%)', // Add this line
                   }}
                   onClick={handleSingleClick} // Change to onClick
                 >
