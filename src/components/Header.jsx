@@ -20,7 +20,7 @@ function Header() {
   return (
     <header className="header">
       <a href='/' className="header__logo">
-        <span className="header__logo--highlight">📝 Jeiem</span>docs
+        <span className="header__logo--highlight">📄 Jeiem</span>docs
       </a>
       <div className="header__user">
         {currentUser && (
