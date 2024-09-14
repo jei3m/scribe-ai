@@ -5,7 +5,7 @@
     position: relative;
     padding: 24px;
     background-color: #f0f0f0;
-    height: 90vh;
+    height: 82vh;
     width: 600px;
     margin: 0 auto;
     display: flex;
@@ -150,7 +150,7 @@
     .chat-container {
         padding: 16px; /* Increase padding */
         width: 100%; /* Full width on small screens */
-        height: 100dvh; /* Increase height on small screens */
+        height: 80dvh; /* Increase height on small screens */
         border-radius: 0px;
         position: absolute;
     }
@@ -176,5 +176,106 @@
         width: 35px; /* Adjust profile picture size for mobile */
         height: 35px;
         margin-right: 8px;
+    }
+}
+
+/* Chat Modal Styling */
+.chat-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 600px;
+    height: 90vh;
+    max-height: 800px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .chat-modal {
+        width: 95%;
+        height: 95vh;
+        max-height: none;
+    }
+
+    .chat-container {
+        height: 100%;
+        width: 100%;
+        border-radius: 12px;
+        padding: 16px;
+    }
+
+    .messages-container {
+        max-height: calc(100% - 140px);
+    }
+
+    .input-container {
+        padding-top: 8px;
+    }
+
+    .message-input {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    .search-button {
+        padding: 0 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chat-modal {
+        width: 98%;
+        height: 80dvh;
+        border-radius: 12px;
+    }
+
+    .header-chat {
+        padding: 8px 0;
+    }
+
+    .chat-title {
+        font-size: 24px;
+    }
+
+    .back-button {
+        font-size: 14px;
+    }
+
+    .message {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .input-container {
+        padding-top: 4px;
+    }
+
+    .message-input {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .search-button {
+        padding: 0 10px;
     }
 }

@@ -22,16 +22,20 @@ const Chat = () => {
   const sanitizeText = (text) => {
     return text
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*/g, '<br />');
+      .replace(/\*/g, '<br />')
+      .replace(/^#\s(.*)$/gm, '<h1>$1</h1>')
+      .replace(/^##\s(.*)$/gm, '<h2>$1</h2>')
+      .replace(/^###\s(.*)$/gm, '<h3>$1</h3>');
   };
 
+  // The Greeting Message of the AI
   useEffect(() => {
     const startChat = async () => {
       if (messages.length === 0) {
         try {
           const genAI = new GoogleGenerativeAI(API_KEY);
           const model = genAI.getGenerativeModel({
-            model: "gemini-1.5-pro-exp-0827",
+            model: "gemini-1.5-flash",
             systemInstruction: `You are ScribeAI, a conversational document editor AI. Be concise.`,
           });
           const prompt = "Hello!";
@@ -56,7 +60,7 @@ const Chat = () => {
 
   useEffect(() => {
     if (messages.length > 0 && selectedText && !selectedTextSent) {
-      sendMessage(`Please correct the grammar and give me suggestions: ${selectedText}`);
+      sendMessage(`Please give me suggestions on how to improve this text: ${selectedText}`);
       setSelectedTextSent(true); // Ensure selectedText is only sent once
     }
   }, [messages, selectedText, selectedTextSent]);
@@ -107,7 +111,7 @@ const Chat = () => {
     <div className="chat-container">
       <ToastContainer />
       <div className="header-chat">
-        <h2>Inscribe AI</h2>
+        <h2 className="chat-title">ScribeAI</h2>
         <button className="back-button" onClick={goBack}>
           <FontAwesomeIcon icon={faArrowLeft} />
           Back

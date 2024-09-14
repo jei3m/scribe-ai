@@ -3,20 +3,16 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from "react-toastify";
-import { useNavigate, useLocation } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
 import "./Chat.css";
 
-const Chat = () => {
+const Chat = ({ selectedText, onClose }) => {
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [selectedTextSent, setSelectedTextSent] = useState(false); // Track if selectedText has been sent
 
   const API_KEY = process.env.REACT_APP_API_KEY;
-  const navigate = useNavigate();
-  const location = useLocation();
-  const selectedText = location.state?.selectedText || '';
+  // const selectedText = selectedText || '';
 
   // Utility function to sanitize and format the text
   const sanitizeText = (text) => {
@@ -28,6 +24,7 @@ const Chat = () => {
       .replace(/^###\s(.*)$/gm, '<h3>$1</h3>');
   };
 
+  // The Greeting Message of the AI
   useEffect(() => {
     const startChat = async () => {
       if (messages.length === 0) {
@@ -59,7 +56,7 @@ const Chat = () => {
 
   useEffect(() => {
     if (messages.length > 0 && selectedText && !selectedTextSent) {
-      sendMessage(`Please correct the grammar and give me suggestions: ${selectedText}`);
+      sendMessage(`Please give me suggestions on how to improve this text: ${selectedText}`);
       setSelectedTextSent(true); // Ensure selectedText is only sent once
     }
   }, [messages, selectedText, selectedTextSent]);
@@ -75,11 +72,13 @@ const Chat = () => {
 
     setMessages(prevMessages => [...prevMessages, userMessage]);
 
+    // Gemini 1.5 Pro experimental "gemini-1.5-pro-exp-0827"
+
     try {
       const genAI = new GoogleGenerativeAI(API_KEY);
       const model = genAI.getGenerativeModel({
         model: "gemini-1.5-flash",
-        systemInstruction: `You are ScribeAI, a conversational document editor AI. Help on producing ideas in writing. Answer even with very little context.`,
+        systemInstruction: `You are ScribeAI, a conversational document editor AI. Help on producing ideas in writing. Answer even with very little context. Be concise. Also give information about the document.`,
       });
       const prompt = userMessage.text;
       const result = await model.generateContent(prompt);
@@ -102,8 +101,8 @@ const Chat = () => {
     setMessages([]);
   };
 
-  const goBack = () => {
-    navigate(-1);
+  const handleClose = () => {
+    onClose();
   };
 
   return (
@@ -111,9 +110,9 @@ const Chat = () => {
       <ToastContainer />
       <div className="header-chat">
         <h2 className="chat-title">ScribeAI</h2>
-        <button className="back-button" onClick={goBack}>
+        <button className="back-button" onClick={handleClose}>
           <FontAwesomeIcon icon={faArrowLeft} />
-          Back
+          Close
         </button>
       </div>
       <div className="messages-container">
