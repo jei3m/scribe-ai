@@ -22,10 +22,7 @@ const Chat = () => {
   const sanitizeText = (text) => {
     return text
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*/g, '<br />')
-      .replace(/^#\s(.*)$/gm, '<h1>$1</h1>')
-      .replace(/^##\s(.*)$/gm, '<h2>$1</h2>')
-      .replace(/^###\s(.*)$/gm, '<h3>$1</h3>');
+      .replace(/\*/g, '<br />');
   };
 
   useEffect(() => {
@@ -34,7 +31,7 @@ const Chat = () => {
         try {
           const genAI = new GoogleGenerativeAI(API_KEY);
           const model = genAI.getGenerativeModel({
-            model: "gemini-1.5-flash",
+            model: "gemini-1.5-pro-exp-0827",
             systemInstruction: `You are ScribeAI, a conversational document editor AI. Be concise.`,
           });
           const prompt = "Hello!";
@@ -78,7 +75,7 @@ const Chat = () => {
     try {
       const genAI = new GoogleGenerativeAI(API_KEY);
       const model = genAI.getGenerativeModel({
-        model: "gemini-1.5-flash",
+        model: "gemini-1.5-pro-exp-0827",
         systemInstruction: `You are ScribeAI, a conversational document editor AI. Help on producing ideas in writing. Answer even with very little context.`,
       });
       const prompt = userMessage.text;

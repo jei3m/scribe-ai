@@ -45,6 +45,12 @@ function Docs() {
   const buttonRef = useRef(null);
   const [lastClickTime, setLastClickTime] = useState(0);
   const docsRef = useRef(null);
+  const [touchStartTime, setTouchStartTime] = useState(0);
+  const [touchStartPosition, setTouchStartPosition] = useState({ x: 0, y: 0 });
+
+  const preventScroll = (e) => {
+    e.preventDefault();
+  };
 
   useEffect(() => {
     const documentUnsubscribe = onSnapshot(
@@ -107,12 +113,14 @@ function Docs() {
 
   // Drag handling for touch devices
   const handleTouchStart = (e) => {
-    setIsDragging(true);
     const touch = e.touches[0];
     const startX = touch.pageX - buttonPosition.x;
     const startY = touch.pageY - buttonPosition.y;
+    setTouchStartPosition({ x: startX, y: startY });
+    setTouchStartTime(new Date().getTime());
 
     const handleTouchMove = (e) => {
+      e.preventDefault();
       if (docsRef.current) {
         const rect = docsRef.current.getBoundingClientRect();
         const touch = e.touches[0];
@@ -126,13 +134,26 @@ function Docs() {
       }
     };
 
-    const handleTouchEnd = () => {
-      setIsDragging(false);
+    const handleTouchEnd = (e) => {
+      const touchEndTime = new Date().getTime();
+      const touchDuration = touchEndTime - touchStartTime;
+      const touch = e.changedTouches[0];
+      const endX = touch.pageX - buttonPosition.x;
+      const endY = touch.pageY - buttonPosition.y;
+      const distance = Math.sqrt(
+        Math.pow(endX - touchStartPosition.x, 2) + Math.pow(endY - touchStartPosition.y, 2)
+      );
+
+      if (touchDuration < 200 && distance < 10) {
+        // This was a tap, not a drag
+        handleDoubleClick(e);
+      }
+
       document.removeEventListener('touchmove', handleTouchMove);
       document.removeEventListener('touchend', handleTouchEnd);
     };
 
-    document.addEventListener('touchmove', handleTouchMove);
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
     document.addEventListener('touchend', handleTouchEnd);
   };
 
@@ -141,7 +162,7 @@ function Docs() {
     const timeSinceLastClick = currentTime - lastClickTime;
 
     if (timeSinceLastClick < 6000) {
-      // Double click detected
+      // Double tap detected
       navigate('/chat', { state: { selectedText } });
     }
     setLastClickTime(currentTime);
@@ -190,8 +211,9 @@ function Docs() {
                     position: 'fixed',
                     left: `${buttonPosition.x}px`,
                     top: `${buttonPosition.y}px`,
-                    cursor: isDragging ? 'grabbing' : 'move',
+                    cursor: 'move',
                     userSelect: 'none',
+                    touchAction: 'none',
                   }}
                   onMouseDown={handleMouseDown}
                   onTouchStart={handleTouchStart} // Handle touch drag start
