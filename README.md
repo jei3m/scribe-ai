@@ -1,14 +1,15 @@
-# React-Docs
+# ScribeAI
 
 ## Overview
 
-`React-Docs` is a full-stack project that utilizes React JS for the frontend and Firebase for the backend. This application provides a platform for users to register accounts, authenticate, and manage documents with real-time updates and sharing capabilities.
+`ScribeAI` is a full-stack project that utilizes React JS for the frontend and Firebase for the backend. This application provides a platform for users to register, authenticate, and manage documents with the help of AI. Users can either chat with ScribeAI or select a portion of text in a document to have it analyzed by the AI.
 
 ## Features
 
-- **Account Registration & Authentication**: Users can create an account and log in using email/password or Google Sign-In API.
+- **Account Registration & Authentication**: Users can create an account and log in using email/password or Google Sign-In.
 - **Real-Time Document Editing**: Documents can be edited with changes automatically saved in real time.
 - **Public Sharing**: Users have the option to make their documents publicly accessible.
+- **Artificial Intelligence**: Users can access the ScribeAI chatbot via the chat button below the document page or by highlighting text and double-tapping the button that appears for AI access.
 
 ## Tech Stack
 
@@ -16,6 +17,7 @@
 - **Backend**: Firebase
 - **Authentication**: Firebase Authentication, Google Sign-In API
 - **Database**: Firebase Firestore (for storing and retrieving documents)
+- **API**: Gemini API for Artificial Intelligence
 
 ## Getting Started
 
@@ -59,6 +61,5 @@
   
 - **Document Management**:
   - Create and edit documents with automatic saving.
-  - Toggle the visibility of documents to public or private.
-
-
+  - Highlight text and double-tap the button that appears for AI access.
+  - Toggle the visibility of documents between public and private.
