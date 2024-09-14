@@ -117,7 +117,7 @@ function Docs() {
                 className='ReactQuill'
               />
               <div className="suggestions">
-                <p>{suggestions}</p> {/* Display AI suggestions here */}
+                <p>{suggestions}</p> 
               </div>
             </div>
           </>
