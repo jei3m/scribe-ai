@@ -11,11 +11,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faCommentDots, faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import "quill/dist/quill.snow.css";
 import imageResize from 'quill-image-resize-module-react';
-import Chat from './Chat'; // Add this import
-import Modal from 'react-modal'; // Add this import (you may need to install it: npm install react-modal)
-
-// Set the app element for accessibility
-Modal.setAppElement('#root');
 
 Quill.register('modules/imageResize', imageResize);
 
@@ -48,8 +43,6 @@ function Docs() {
   const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0 });
   const buttonRef = useRef(null);
   const [isButtonPressed, setIsButtonPressed] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Add this state
-  const [showAnalyzeButton, setShowAnalyzeButton] = useState(true);
 
   useEffect(() => {
     const documentUnsubscribe = onSnapshot(
@@ -87,22 +80,7 @@ function Docs() {
         x: rect.left - editorRect.left + rect.width / 2,
         y: rect.top - editorRect.top + 20
       });
-      setShowAnalyzeButton(true); // Show the button when text is selected
-    } else {
-      setShowAnalyzeButton(false); // Hide the button when no text is selected
     }
-  };
-
-  const openChatModal = () => {
-    setIsModalOpen(true);
-    setShowAnalyzeButton(false);
-    document.body.style.overflow = 'hidden'; // Add this line
-  };
-
-  const closeChatModal = () => {
-    setIsModalOpen(false);
-    setSelectedText('');
-    document.body.style.overflow = 'auto'; // Add this line
   };
 
   useEffect(() => {
@@ -140,7 +118,7 @@ function Docs() {
                 onChange={handleChange}
                 className='ReactQuill'
               />
-              {selectedText && showAnalyzeButton && (
+              {selectedText && (
                 <button
                   ref={buttonRef}
                   className='askAiButton'
@@ -150,7 +128,7 @@ function Docs() {
                     position: 'absolute', // Add this line
                     transform: 'translateX(-50%)', // Add this line
                   }}
-                  onClick={openChatModal} // Change to onClick
+                  onClick={() => navigate('/chat', { state: { selectedText } })} // Change to onClick
                 >
                   Analyze 🧠
                 </button>
@@ -162,7 +140,7 @@ function Docs() {
           <button onClick={goToHome} className='backButton'>
             <FontAwesomeIcon icon={faArrowLeft} /> Back
           </button>
-          <button onClick={openChatModal} className='printButton'>
+          <button onClick={() => navigate('/chat')} className='printButton'>
             ScribeAI 🧠
           </button>
           <button
@@ -175,15 +153,6 @@ function Docs() {
           </button>
         </div>
       </div>
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeChatModal}
-        contentLabel="Chat Modal"
-        className="chat-modal"
-        overlayClassName="chat-modal-overlay"
-      >
-        <Chat selectedText={selectedText} onClose={closeChatModal} />
-      </Modal>
     </div>
   );
 }

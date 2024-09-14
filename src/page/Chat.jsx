@@ -3,16 +3,21 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate, useLocation } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 import "./Chat.css";
 
-const Chat = ({ selectedText, onClose }) => {
+const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [selectedTextSent, setSelectedTextSent] = useState(false); // Track if selectedText has been sent
+  const [geminiHasChatted, setGeminiHasChatted] = useState(false);
 
   const API_KEY = process.env.REACT_APP_API_KEY;
-  // const selectedText = selectedText || '';
+  const navigate = useNavigate();
+  const location = useLocation();
+  const selectedText = location.state?.selectedText || '';
 
   // Utility function to sanitize and format the text
   const sanitizeText = (text) => {
@@ -24,7 +29,6 @@ const Chat = ({ selectedText, onClose }) => {
       .replace(/^###\s(.*)$/gm, '<h3>$1</h3>');
   };
 
-  // The Greeting Message of the AI
   useEffect(() => {
     const startChat = async () => {
       if (messages.length === 0) {
@@ -45,6 +49,7 @@ const Chat = ({ selectedText, onClose }) => {
               user: false,
             },
           ]);
+          setGeminiHasChatted(true);
         } catch (error) {
           toast.error("Error starting chat.");
         }
@@ -55,11 +60,15 @@ const Chat = ({ selectedText, onClose }) => {
   }, [API_KEY, messages.length]);
 
   useEffect(() => {
-    if (messages.length > 0 && selectedText && !selectedTextSent) {
-      sendMessage(`Please give me suggestions on how to improve this text: ${selectedText}`);
-      setSelectedTextSent(true); // Ensure selectedText is only sent once
+    if (selectedText && !selectedTextSent && geminiHasChatted) {
+      const timer = setTimeout(() => {
+        sendMessage(`Please correct the grammar and give me suggestions: ${selectedText}`);
+        setSelectedTextSent(true);
+      }, 1000);
+
+      return () => clearTimeout(timer);
     }
-  }, [messages, selectedText, selectedTextSent]);
+  }, [selectedText, selectedTextSent, geminiHasChatted]);
 
   const sendMessage = async (text = userInput) => {
     if (!text.trim()) {
@@ -72,13 +81,15 @@ const Chat = ({ selectedText, onClose }) => {
 
     setMessages(prevMessages => [...prevMessages, userMessage]);
 
-    // Gemini 1.5 Pro experimental "gemini-1.5-pro-exp-0827"
+    // Gemini 1.5 Pro Experimental gemini-1.5-pro-exp-0827
+
+    // Not the greetings but now the personality of the AI after greeting
 
     try {
       const genAI = new GoogleGenerativeAI(API_KEY);
       const model = genAI.getGenerativeModel({
-        model: "gemini-1.5-flash",
-        systemInstruction: `You are ScribeAI, a conversational document editor AI. Help on producing ideas in writing. Answer even with very little context. Be concise. Also give information about the document.`,
+        model: "gemini-1.5-pro-exp-0827",
+        systemInstruction: `You are ScribeAI, a conversational document editor AI. Help on producing ideas in writing. Answer even with very little context.`,
       });
       const prompt = userMessage.text;
       const result = await model.generateContent(prompt);
@@ -101,8 +112,8 @@ const Chat = ({ selectedText, onClose }) => {
     setMessages([]);
   };
 
-  const handleClose = () => {
-    onClose();
+  const goBack = () => {
+    navigate(-1);
   };
 
   return (
@@ -110,9 +121,9 @@ const Chat = ({ selectedText, onClose }) => {
       <ToastContainer />
       <div className="header-chat">
         <h2 className="chat-title">ScribeAI</h2>
-        <button className="back-button" onClick={handleClose}>
+        <button className="back-button" onClick={goBack}>
           <FontAwesomeIcon icon={faArrowLeft} />
-          Close
+          Back
         </button>
       </div>
       <div className="messages-container">
