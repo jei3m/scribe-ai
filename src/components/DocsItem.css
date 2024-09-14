@@ -1,12 +1,11 @@
 .docsItem {
-    max-width: 220px; /* Reduced width */
-    min-width: 210px; /* Reduced width */
-    height: 290px; /* Reduced height */
-    border-radius: 12px; /* Slightly smaller border radius */
-    background-color: #bbbbbb;
+    width: 200px; /* Reduced width */
+    height: 265px; /* Reduced height */
+    border-radius: 13px; /* Slightly smaller border radius */
+    /* background-color: #ffffff; */
+    background-color: #616161;
     padding: 16px; /* Reduced padding */
-    color: #333333;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.452);
+    color: #292929;
     font-size: 13px; /* Smaller font size */
     display: flex;
     flex-direction: column;
@@ -19,11 +18,11 @@
 }
 
 .docsItem:hover {
-    background-color: #7a7a7a;
+    background-color: #007bff;
 }
 
 .docsTitle {
-    font-size: 16px;
+    font-size: 22px !important;
     font-weight: bold;
     margin-bottom: 80px;
     text-align: center;
@@ -34,22 +33,22 @@
 
 .docsItemContent {
     background-color: #ffffff;
-    border-radius: 12px;
-    width: 195px;
+    border-radius: 10px;
+    width: 180px;
+    height: 240px; /* Height should work with !important */
     padding: 15px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-items: center; /* Center content horizontally */
     justify-content: center; /* Center content vertically */
-    height: 265px; /* Height should work with !important */
     flex-shrink: 0; /* Prevent the flex item from shrinking */
 }
 
 
 .visibility {
     position: absolute;
-    margin-top: 117px;
+    margin-top: 161px;
     right: 50%;
 }
 
@@ -62,7 +61,7 @@
     cursor: pointer;
     transition: color 0.3s ease;
     position: absolute;
-    bottom: 75px; /* Move button to the bottom of the card */
+    bottom: 40px; /* Move button to the bottom of the card */
     left: 60%;
     transform: translateX(-50%) rotate(90deg); /* Center button horizontally */
     font-family: 'Encode Sans', sans-serif; /* Add font family */
@@ -75,9 +74,9 @@
 .openModalCon {
     width: 130px;
     position: absolute;
-    top: 20px; /* Adjust to ensure modal is not hidden by the button */
-    right: 44px;
-    background-color: #ffffff;
+    top: 24px; /* Adjust to ensure modal is not hidden by the button */
+    right: 33px;
+    background-color: #292929;
     z-index: 4;
     border-radius: 10px;
     display: flex;
@@ -86,7 +85,7 @@
 }
 
 .opemModalBtn {
-    color: #333333;
+    color: #ffffff;
     font-size: 14px;
     transition: all 0.3s;
     padding: 8px 5px;

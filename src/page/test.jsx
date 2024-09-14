@@ -1,6 +1,6 @@
 import { collection, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState, useRef } from 'react';
-import ReactQuill, { Quill } from 'react-quill'; // Import Quill from react-quill
+import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { db } from '../firebase';
@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import "quill/dist/quill.snow.css";
 import imageResize from 'quill-image-resize-module-react';
+import { GoogleGenerativeAI } from "@google/generative-ai"; // Import Google Generative AI SDK
 
 // Import Quill and register the imageResize module
 Quill.register('modules/imageResize', imageResize);
@@ -22,7 +23,6 @@ const TOOL_BAR_OPTIONS = [
   [{ list: 'ordered' }, { list: 'bullet' }],
   ['bold', 'italic', 'underline'],
   [{ align: [] }],
-  // [{ color: [] }, { background: [] }],
   ['image', 'blockquote', 'code-block'],
 ];
 
@@ -36,37 +36,56 @@ const modules = {
   },
 };
 
+const apiKey = process.env.REACT_APP_API_KEY; // Store your API key in environment variables
+const genAI = new GoogleGenerativeAI(apiKey); // Initialize the Google AI SDK
+
 function Docs() {
-  const params = useParams(); // Get document ID from URL parameters
-  const [editorData, setEditorData] = useState(null); // State for editor content
-  const [isLoading, setIsLoading] = useState(true); // State for loading status
-  const { currentUser } = UserAuth(); // Authentication context
-  const navigate = useNavigate(); // Navigation hook
-  const editorRef = useRef(null); // Ref for ReactQuill component
+  const params = useParams();
+  const [editorData, setEditorData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const { currentUser } = UserAuth();
+  const navigate = useNavigate();
+  const editorRef = useRef(null);
+  const [suggestions, setSuggestions] = useState('');
 
   useEffect(() => {
-    // Subscribe to document changes
     const documentUnsubscribe = onSnapshot(
       doc(collection(db, 'docs-data'), params.id),
       (res) => {
         const data = res.data();
         if (data.author !== currentUser.email) {
-          navigate('/error'); // Redirect if user is not the author
+          navigate('/error');
         } else {
-          setEditorData(data.body); // Set editor content
-          setIsLoading(false); // Loading complete
+          setEditorData(data.body);
+          setIsLoading(false);
         }
       }
     );
-    return documentUnsubscribe; // Cleanup subscription on component unmount
+    return documentUnsubscribe;
   }, [currentUser.email, params.id, navigate]);
 
+  // Function to generate AI suggestions using Google AI SDK
+  const generateAISuggestions = async (content) => {
+    try {
+      const model = genAI.getGenerativeModel({
+        model: "gemini-1.5-pro-exp-0827",
+        systemInstruction: `Only provide concise suggestions. You are a writer helper`,
+      });
+      const result = await model.generateContent(content);
+      const response = await result.response;
+      const text = await response.text();
+      setSuggestions(text);
+    } catch (error) {
+      console.error('Error generating AI suggestions:', error);
+    }
+  };
+
   function handleChange(value) {
-    setEditorData(value); // Update editor content
+    setEditorData(value);
+    generateAISuggestions(value); // Generate suggestions from AI based on the current content
   }
 
   useEffect(() => {
-    // Debounce document update
     const updateDocumentTimeout = setTimeout(() => {
       if (editorData !== null) {
         updateDoc(doc(collection(db, 'docs-data'), params.id), {
@@ -74,18 +93,18 @@ function Docs() {
         });
       }
     }, 500);
-    return () => clearTimeout(updateDocumentTimeout); // Cleanup timeout
+    return () => clearTimeout(updateDocumentTimeout);
   }, [editorData, params.id]);
 
   function goToHome() {
-    navigate('/home'); // Navigate to home page
+    navigate('/home');
   }
 
   return (
     <div className='Docs-container'>
       <div className='Docs'>
         {isLoading ? (
-          <Loading /> // Show loading spinner
+          <Loading />
         ) : (
           <>
             <div className='editorContainer'>
@@ -97,6 +116,9 @@ function Docs() {
                 onChange={handleChange}
                 className='ReactQuill'
               />
+              <div className="suggestions">
+                <p>{suggestions}</p> {/* Display AI suggestions here */}
+              </div>
             </div>
           </>
         )}
@@ -106,7 +128,7 @@ function Docs() {
           </button>
           <button
             onClick={() => {
-              window.print(); // Print the document
+              window.print();
             }}
             className='printButton'
           >

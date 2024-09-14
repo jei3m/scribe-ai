@@ -189,7 +189,7 @@
 }
 
 .ql-container.ql-snow {
-	border: none;
+	border: none !important;
 	display: flex;
 	justify-content: center;
 }
@@ -205,6 +205,11 @@
 	background-color: var(--itemBg-color);
 	color: var(--text-color);
 }
+
+.ql-snow .ql-editor img {
+    max-width: 100%;
+}
+
 .ql-toolbar.ql-snow .ql-formats button svg path {
 	stroke: var(--text-color);
 }
@@ -359,3 +364,4 @@
     page-break-inside: avoid;
   }
 }
+

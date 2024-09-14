@@ -35,7 +35,7 @@ const Home = () => {
       <Header />
       <HomeCreate setIsAdd={setIsAdd} />
       <div className='homeItems'>
-        <p>{docs.length ? 'Your Documents:' : 'No Documents'}</p>
+        <p style={{color:'white'}}>{docs.length ? 'Documents:' : 'No Documents'}</p>
         <div className='homeItemContainer'>
           {isDocsLoading ? (
             <LoadingElement /> // Show loading spinner

@@ -49,7 +49,7 @@ function Register() {
         <div className="Appokform">
             <Header/>
             <div className="Appcardform">
-                <h2 style={{ fontSize: '2em', marginBottom:'14px' }}>Register</h2>
+                <h2 style={{ fontSize: '2em', marginBottom:'14px', marginTop:'-10px' }}>Register</h2>
                 <form className="auth-form-container" onSubmit={handleRegister}>
                     <input
                         value={name}

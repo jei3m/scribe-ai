@@ -51,7 +51,7 @@ function Login() {
         <div className="Appokform"> {/* Wrapper for the form container, applies styling from a CSS class */}
             <Header/>
             <div className="Appcardform"> {/* Card-like container for the login form */}
-                <h2 style={{ fontSize: '2em', marginBottom:'20px' }}>Login</h2> {/* Header for the form with inline font size styling */}
+                <h2 style={{ fontSize: '2em', marginBottom:'20px', marginTop:'-10px' }}>Login</h2> {/* Header for the form with inline font size styling */}
                 
                 <form className="auth-form-container" onSubmit={handleEmailSignIn}> {/* Form container with submit handler */}
                     <input 

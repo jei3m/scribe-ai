@@ -3,7 +3,7 @@
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
-    background: linear-gradient(to bottom, #f2f8fc, #e6eef2);
+    background-color: #292929;
 
 }
 
@@ -45,7 +45,7 @@ input {
 .buttonform {
     border: none;
     margin: 0.5rem 0;
-    background-color: #3693f7; 
+    background-color: #292929; 
     padding: 1rem;
     border-radius: 10px;
     cursor: pointer;
@@ -82,9 +82,9 @@ input {
 .google-login-btn {
 	display: flex;
 	align-items: center;
-	background-color: #d3d3d3;
-	color: rgb(8, 8, 8);
-    border: 2px solid #bbbbbb;
+	background-color: #292929;
+	color: #ffffff;
+    border: 2px solid #292929;
 	border-radius: 10px;
 	padding: 0.75rem 1.5rem;
 	font-size: 1rem;
@@ -100,6 +100,7 @@ input {
 .google-login-btn:hover {
 	background-color: #ffffff;
 	transform: scale(1.02);
+    color: #292929;
 }
 
 .google-login-btn:active {
@@ -114,4 +115,11 @@ input {
 
 .google-btn-text {
 	font-size: 1rem;
+}
+
+.error-message {
+    color: #ff0000;
+    font-size: 14px;
+    margin-top: 5px;    
+    margin-bottom: 10px;  
 }

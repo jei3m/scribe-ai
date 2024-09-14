@@ -20,7 +20,7 @@ function Header() {
   return (
     <header className="header">
       <a href='/' className="header__logo">
-        <span className="header__logo--highlight">Jeiem</span>docs
+        <span className="header__logo--highlight">📝 Jeiem</span>docs
       </a>
       <div className="header__user">
         {currentUser && (
@@ -36,7 +36,7 @@ function Header() {
               onRequestClose={closeModal}
               style={{
                 overlay: {
-                  backgroundColor: 'rgba(0, 0, 0, 0.7)', // Semi-transparent dark background
+                  backgroundColor: 'rgba(0, 0, 0, 0.85)', // Less transparent dark background
                   zIndex: 1000 // Ensure it's above other content
                 },
                 content: {

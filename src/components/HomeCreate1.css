@@ -1,0 +1,95 @@
+/* Style for the container div */
+.homeCreateDiv {
+	display: flex;
+	flex-direction: row; /* Arrange items horizontally */
+	align-items: center; /* Center items vertically */
+	justify-content: center; /* Center items horizontally */
+	background-color: var(--itemBg-color);
+	padding: 50px 0; /* Increase padding for a hero section effect */
+	position: relative; /* Position relative to place the separator correctly */
+    box-sizing: border-box;
+}
+
+/* Container for the text */
+.textContainer {
+	margin-right: 20px; /* Space between the text and the button */
+	text-align: left; /* Align text to the left */
+}
+
+/* Style for the main instruction text */
+.homeCreateText {
+	font-size: 8vw; /* Font size relative to viewport width for larger screens */
+	color: #292929;
+	font-weight: bold; /* Make the text bold */
+	margin: 0; /* Remove default margin */
+	line-height: 1.1; /* Line height for better readability */
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Style for the sub instruction text */
+.homeCreateSubText {
+	font-size: 8vw; /* Font size relative to viewport width */
+	color: #007bff; /* Dark gray text color */
+	font-weight: bold; /* Make the text bold */
+	margin: 0; /* Remove default margin */
+	line-height: 1; /* Line height for better readability */
+}
+
+/* Style for the button and separator container */
+.buttonSeparatorContainer {
+	display: flex;
+	flex-direction: column; /* Stack button and separator vertically */
+	align-items: center; /* Center items horizontally */
+	margin: 0;
+}
+
+.homeCreateBtn {
+	margin-top: 10px !important;
+	color: var(--text-color);
+	background-color: #cfcfcf;
+	font-size: 90px;
+	color: #007bff;
+	border-radius: 10px;
+	width:120px;
+	height: 160px;
+	margin: 0 auto;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Change background color on hover */
+.homeCreateBtn:hover {
+	background-color: #979797; /* Darker gray on hover */
+}
+
+/* Style for the separator */
+.separator {
+	width: 100vw; /* Full viewport width */
+	height: 1px; /* Thin separator */
+	background-color: #ccc; /* Light gray color */
+	position: absolute; /* Absolute positioning to span full width */
+	bottom: 0; /* Place at the bottom of the container */
+	left: 0; /* Align to the left */
+	margin-top: 30px; /* Space between button and separator */
+}
+
+/* Responsive adjustments */
+@media (min-width: 600px) {
+	.homeCreateText {
+		font-size: 60px; /* Adjust font size for medium screens */
+	}
+
+	.homeCreateSubText {
+		font-size: 40px; /* Adjust font size for medium screens */
+	}
+}
+
+@media (min-width: 992px) {
+	.homeCreateText {
+		font-size: 80px; /* Adjust font size for large screens */
+	}
+
+	.homeCreateSubText {
+		font-size: 50px; /* Adjust font size for large screens */
+	}
+}

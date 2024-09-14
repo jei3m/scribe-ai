@@ -111,7 +111,8 @@ p {
 .home {
 	min-height: 100dvh;
 	padding-top: 70px;
-	background-color: var(--bg-color);
+	/* background-color: var(--bg-color); */
+	background-color: #292929;
 }
 
 .homeCreateDiv {
@@ -129,7 +130,7 @@ p {
 }
 
 .homeItems p {
-	font-size: 26px;
+	font-size: 28px;
 	text-align: center;
 	font-weight: bold;
 }
