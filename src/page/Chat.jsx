@@ -62,7 +62,7 @@ const Chat = ({ selectedText, onClose }) => {
   useEffect(() => {
     if (selectedText && !selectedTextSent && geminiHasChatted) {
       const timer = setTimeout(() => {
-        sendMessage(`Please correct the grammar and give me suggestions: ${selectedText}`);
+        sendMessage(`Please analyze: ${selectedText}`);
         setSelectedTextSent(true);
       }, 1000);
 
