@@ -120,17 +120,6 @@ const Chat = ({ selectedText, onClose }) => {
         <button 
           className="close-button" 
           onClick={onClose}
-          style={{
-            backgroundColor: 'transparent',
-            border: 'none',
-            color: '#333',
-            fontSize: '1.2rem',
-            cursor: 'pointer',
-            padding: '5px',
-            transition: 'color 0.3s ease'
-          }}
-          onMouseOver={(e) => e.target.style.color = '#ff0000'}
-          onMouseOut={(e) => e.target.style.color = '#333'}
         >
           <FontAwesomeIcon icon={faTimes} />
         </button>

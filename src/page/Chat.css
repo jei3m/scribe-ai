@@ -279,3 +279,15 @@
         padding: 0 10px;
     }
 }
+
+/* in your CSS file, e.g., styles.css */
+.close-button {
+    background-color: transparent;
+    border: none;
+    color: #333;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.3s ease;
+  }
+  
