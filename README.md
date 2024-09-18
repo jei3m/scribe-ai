@@ -9,7 +9,7 @@
 - **Account Registration & Authentication**: Users can create an account and log in using email/password or Google Sign-In.
 - **Real-Time Document Editing**: Documents can be edited with changes automatically saved in real time.
 - **Public Sharing**: Users have the option to make their documents publicly accessible.
-- **Artificial Intelligence**: Users can access the ScribeAI chatbot via the chat button below the document page or by highlighting text and double-tapping the button that appears for AI access.
+- **Artificial Intelligence**: Users can access the ScribeAI chatbot via the chat button below the document page or by highlighting text and tapping the button that appears for AI to analyze text.
 
 ## Tech Stack
 
