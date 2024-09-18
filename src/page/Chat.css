@@ -81,7 +81,7 @@
     border-radius: 12px;
     font-size: 18px; /* Increase font size */
     width: fit-content;
-    max-width: 85%; /* Slightly increase width */
+    max-width: 90%; /* Slightly increase width */
     word-wrap: break-word;
 }
 
@@ -91,6 +91,7 @@
     text-align: right;
     margin-left: auto;
     min-width: auto;
+    max-width: 80%;
 }
 
 .message.ai {
