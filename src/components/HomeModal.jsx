@@ -56,6 +56,7 @@ export default function HomeModal({ setIsAdd, existingDocs }) {
                         type='checkbox'
                         checked={isPrivate}
                         onChange={handleCheckboxChange}
+                        className='checkBox'
                     />
                 </label>
                 {error && (
