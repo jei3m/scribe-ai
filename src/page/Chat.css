@@ -90,6 +90,7 @@
     color: #fff;
     text-align: right;
     margin-left: auto;
+    min-width: auto;
 }
 
 .message.ai {
