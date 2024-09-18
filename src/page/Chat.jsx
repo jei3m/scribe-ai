@@ -23,7 +23,7 @@ const Chat = ({ selectedText, onClose }) => {
   const sanitizeText = (text) => {
     return text
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*/g, '<br />')
+      .replace(/\*/g, '<br/>')
       .replace(/^#\s(.*)$/gm, '<h1>$1</h1>')
       .replace(/^##\s(.*)$/gm, '<h2>$1</h2>')
       .replace(/^###\s(.*)$/gm, '<h3>$1</h3>');
@@ -89,7 +89,7 @@ const Chat = ({ selectedText, onClose }) => {
       const genAI = new GoogleGenerativeAI(API_KEY);
       const model = genAI.getGenerativeModel({
         model: "gemini-1.5-pro-exp-0827",
-        systemInstruction: `You are ScribeAI, a conversational document editor AI. Help on producing ideas in writing, be concise. Answer even with very little context.`,
+        systemInstruction: `You are ScribeAI, a conversational document editor AI. Help on producing ideas in writing, be concise. Add some styles in your answers. Answer even with very little context.`,
       });
       const prompt = userMessage.text;
       const result = await model.generateContent(prompt);
