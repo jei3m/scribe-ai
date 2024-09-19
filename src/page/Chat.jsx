@@ -11,15 +11,14 @@ const Chat = ({ selectedText, onClose }) => {
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [selectedTextSent, setSelectedTextSent] = useState(false); // Track if selectedText has been sent
+  const [selectedTextSent, setSelectedTextSent] = useState(false);
   const [geminiHasChatted, setGeminiHasChatted] = useState(false);
+  const [tokenUsage, setTokenUsage] = useState(0);
 
   const API_KEY = process.env.REACT_APP_API_KEY;
   const navigate = useNavigate();
   const location = useLocation();
-  // const selectedText = location.state?.selectedText || '';
 
-  // Utility function to sanitize and format the text
   const sanitizeText = (text) => {
     return text
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
@@ -43,6 +42,10 @@ const Chat = ({ selectedText, onClose }) => {
           const response = result.response;
           const text = await response.text();
 
+          const promptTokens = prompt.split(/\s+/).length;
+          const responseTokens = text.split(/\s+/).length;
+          setTokenUsage(promptTokens + responseTokens);
+
           setMessages([
             {
               text: sanitizeText(text),
@@ -65,7 +68,6 @@ const Chat = ({ selectedText, onClose }) => {
         sendMessage(`Please analyze: ${selectedText}`);
         setSelectedTextSent(true);
       }, 1000);
-
       return () => clearTimeout(timer);
     }
   }, [selectedText, selectedTextSent, geminiHasChatted]);
@@ -78,12 +80,7 @@ const Chat = ({ selectedText, onClose }) => {
 
     setLoading(true);
     const userMessage = { text, user: true };
-
     setMessages(prevMessages => [...prevMessages, userMessage]);
-
-    // Gemini 1.5 Pro Experimental gemini-1.5-pro-exp-0827
-
-    // Not the greetings but now the personality of the AI after greeting
 
     try {
       const genAI = new GoogleGenerativeAI(API_KEY);
@@ -95,6 +92,10 @@ const Chat = ({ selectedText, onClose }) => {
       const result = await model.generateContent(prompt);
       const response = result.response;
       const responseText = await response.text();
+
+      const promptTokens = prompt.split(/\s+/).length;
+      const responseTokens = responseText.split(/\s+/).length;
+      setTokenUsage(prevUsage => prevUsage + promptTokens + responseTokens);
 
       setMessages(prevMessages => [
         ...prevMessages,
@@ -108,17 +109,13 @@ const Chat = ({ selectedText, onClose }) => {
     }
   };
 
-  // const clearMessages = () => {
-  //   setMessages([]);
-  // };
-
   return (
     <div className="chat-container">
       <ToastContainer />
       <div className="header-chat">
         <h2 className="chat-title">ScribeAI</h2>
-        <button 
-          className="close-button" 
+        <button
+          className="close-button"
           onClick={onClose}
         >
           <FontAwesomeIcon icon={faTimes} />
@@ -152,6 +149,9 @@ const Chat = ({ selectedText, onClose }) => {
             <FontAwesomeIcon icon={faSearch} />
           )}
         </button>
+      </div>
+      <div className="token-usage">
+        Tokens used: {tokenUsage}
       </div>
     </div>
   );

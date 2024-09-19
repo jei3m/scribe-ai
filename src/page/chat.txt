@@ -163,7 +163,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import "./Chat.css";
 
-const Chat = ({ selectedText, onClose, clearSelectedText }) => {
+const Chat = ({ selectedText, onClose }) => {
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -264,10 +264,9 @@ const Chat = ({ selectedText, onClose, clearSelectedText }) => {
     }
   };
 
-  const handleClose = () => {
-    clearSelectedText();
-    onClose();
-  };
+  // const clearMessages = () => {
+  //   setMessages([]);
+  // };
 
   return (
     <div className="chat-container">
@@ -276,13 +275,13 @@ const Chat = ({ selectedText, onClose, clearSelectedText }) => {
         <h2 className="chat-title">ScribeAI</h2>
         <button 
           className="close-button" 
-          onClick={handleClose}
+          onClick={onClose}
         >
           <FontAwesomeIcon icon={faTimes} />
         </button>
       </div>
       <div className="messages-container">
-      {messages.map((msg, index) => (
+        {messages.map((msg, index) => (
           <div key={index} className={`message-container ${msg.user ? 'user' : 'ai'}`}>
             <div className={`message ${msg.user ? 'user' : 'ai'}`}
               dangerouslySetInnerHTML={{ __html: msg.text }}
