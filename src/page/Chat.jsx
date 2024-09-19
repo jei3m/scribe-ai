@@ -108,9 +108,9 @@ const Chat = ({ selectedText, onClose }) => {
     }
   };
 
-  const clearMessages = () => {
-    setMessages([]);
-  };
+  // const clearMessages = () => {
+  //   setMessages([]);
+  // };
 
   return (
     <div className="chat-container">
