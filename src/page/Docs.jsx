@@ -107,6 +107,7 @@ function Docs() {
 
   const closeChatModal = () => {
     setIsChatModalOpen(false);
+    setSelectedText('');
   };
 
   useEffect(() => {
