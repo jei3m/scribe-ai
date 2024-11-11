@@ -24,11 +24,10 @@ const HomeCreate = ({ setIsAdd }) => {
         <div className="recent-documents">
           <FileText className="file-icon" />
           <span className="recent-text">Recent Documents</span>
-          <ChevronDown className="chevron-icon" />
         </div>
       </div>
-      {/* <div className="gradient-overlay"></div> */}
-      {/* <div className="bottom-border"></div> */}
+      {/* <div className="gradient-overlay"></div>
+      <div className="bottom-border"></div> */}
     </header>
   );
 };
