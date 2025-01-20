@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -14,6 +14,8 @@ const Chat = ({ selectedText, onClose }) => {
   const [selectedTextSent, setSelectedTextSent] = useState(false);
   const [geminiHasChatted, setGeminiHasChatted] = useState(false);
   const [tokenUsage, setTokenUsage] = useState(0);
+  const [isStreaming, setIsStreaming] = useState(false);
+  const messagesEndRef = useRef(null);
 
   const API_KEY = process.env.REACT_APP_API_KEY;
   const navigate = useNavigate();
@@ -28,13 +30,39 @@ const Chat = ({ selectedText, onClose }) => {
       .replace(/^###\s(.*)$/gm, '<h3>$1</h3>');
   };
 
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const streamText = async (fullText, messageIndex) => {
+    setIsStreaming(true);
+    let currentText = "";
+    const chars = fullText.split("");
+    
+    for (let i = 0; i < chars.length; i++) {
+      currentText += chars[i];
+      setMessages(prevMessages => {
+        const updatedMessages = [...prevMessages];
+        updatedMessages[messageIndex] = {
+          ...updatedMessages[messageIndex],
+          text: sanitizeText(currentText)
+        };
+        return updatedMessages;
+      });
+      
+      // Adjust the delay for smoother or faster streaming
+      await new Promise(resolve => setTimeout(resolve, 20));
+    }
+    setIsStreaming(false);
+  };
+
   useEffect(() => {
     const startChat = async () => {
       if (messages.length === 0) {
         try {
           const genAI = new GoogleGenerativeAI(API_KEY);
           const model = genAI.getGenerativeModel({
-            model: "gemini-1.5-flash",
+            model: "gemini-2.0-flash-exp",
             systemInstruction: `You are ScribeAI, a conversational document editor AI. Be concise.`,
           });
           const prompt = "Hello!";
@@ -46,12 +74,8 @@ const Chat = ({ selectedText, onClose }) => {
           const responseTokens = text.split(/\s+/).length;
           setTokenUsage(promptTokens + responseTokens);
 
-          setMessages([
-            {
-              text: sanitizeText(text),
-              user: false,
-            },
-          ]);
+          setMessages([{ text: "", user: false }]);
+          streamText(text, 0);
           setGeminiHasChatted(true);
         } catch (error) {
           toast.error("Error starting chat.");
@@ -72,10 +96,18 @@ const Chat = ({ selectedText, onClose }) => {
     }
   }, [selectedText, selectedTextSent, geminiHasChatted]);
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   const sendMessage = async (text = userInput) => {
     if (!text.trim()) {
       toast.warning("Please type a message before sending.");
       return;
+    }
+
+    if (isStreaming) {
+      return; // Prevent sending new messages while streaming
     }
 
     setLoading(true);
@@ -97,10 +129,13 @@ const Chat = ({ selectedText, onClose }) => {
       const responseTokens = responseText.split(/\s+/).length;
       setTokenUsage(prevUsage => prevUsage + promptTokens + responseTokens);
 
+      const newMessageIndex = messages.length + 1;
       setMessages(prevMessages => [
         ...prevMessages,
-        { text: sanitizeText(responseText), user: false },
+        { text: "", user: false },
       ]);
+      
+      await streamText(responseText, newMessageIndex);
     } catch (error) {
       toast.error("Error sending message.");
     } finally {
@@ -129,6 +164,7 @@ const Chat = ({ selectedText, onClose }) => {
             />
           </div>
         ))}
+        <div ref={messagesEndRef} />
       </div>
       <div className="input-container">
         <input
@@ -136,12 +172,13 @@ const Chat = ({ selectedText, onClose }) => {
           placeholder="Type a message"
           onChange={(e) => setUserInput(e.target.value)}
           value={userInput}
-          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+          onKeyDown={(e) => e.key === "Enter" && !isStreaming && sendMessage()}
+          disabled={isStreaming}
         />
         <button
           className="search-button"
           onClick={() => sendMessage()}
-          disabled={loading}
+          disabled={loading || isStreaming}
         >
           {loading ? (
             <div className="loading-spinner"></div>
