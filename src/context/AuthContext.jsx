@@ -84,6 +84,7 @@ export function AuthProvider({ children }) {
                 title: title,
                 author: currentUser?.email,
                 private: isPrivate,
+                createdAt: new Date().toISOString(),
                 body: '',
             });
         } catch (error) {
