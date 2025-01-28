@@ -1,4 +1,5 @@
 # ScribeAI
+![image](https://github.com/user-attachments/assets/626855f3-3850-48cd-b025-35a8e9299a1e)
 
 ## Overview
 
