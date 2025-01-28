@@ -13,6 +13,8 @@ const Home = () => {
   const [isDocsLoading, setIsDocsLoading] = useState(true); // State for loading status
   const { currentUser } = UserAuth(); // Authentication context
   const [isAdd, setIsAdd] = useState(false); // State for modal visibility
+  const sortedDocs = docs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
 
   useEffect(() => {
     if (currentUser) {
@@ -40,7 +42,7 @@ const Home = () => {
           {isDocsLoading ? (
             <LoadingElement /> // Show loading spinner
           ) : docs.length ? (
-            docs.map(doc => <DocsItem key={doc.id} value={doc} />) // Display documents
+            sortedDocs.map(doc => <DocsItem key={doc.id} value={doc} />) // Display documents
           ) : (
             <h2 style={{margin:'0'}}>Click the <span className='create-icon'>+</span> above to create one.</h2>
           )}
