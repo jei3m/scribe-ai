@@ -1,6 +1,8 @@
 # ScribeAI
 ![scribe](https://github.com/user-attachments/assets/a82d7b24-848a-4b20-8f27-39060a1df894)
 
+### Note: `Due to the recent changes of Firebase's free tier, this project is no longer actively maintained.`
+
 ## Overview
 
 `ScribeAI` is a full-stack project that utilizes React JS for the frontend and Firebase for the backend. This application provides a platform for users to register, authenticate, and manage documents with the help of AI. Users can either chat with ScribeAI or select a portion of text in a document to have it analyzed by the AI.
